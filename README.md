@@ -32,7 +32,7 @@
 	10. [Flows, VM-VM, Routed, on Same Host](#query-flows-routed-samehost)
 	11. [Flows, VM-VM, Routed, via any L3 Router](#query-flows-routed-any)
 	12. [Flows, VM-VM, Routed, via specific L3 Router](#query-flows-routed-specific)
-	13. [Moving, Migrating Applications] (#migration)
+	13. [Moving, Migrating Applications](#migration)
 3. [Import/Export Applications](#applications)
 
 ## vRNI Trial Process <a name="introduction"></a>
@@ -365,15 +365,9 @@ Kubernetes Service 'carts'
 ```
 
 
-
-
-
-
-
 ## Traffic Analysis Queries <a name="queries"></a>
 
 #### Traffic Analysis - L2 Network <a name="query-traffic-network"></a>
-
 ```
 vms group by Default Gateway Router
 vms group by Network Address, Default Gateway
@@ -382,143 +376,120 @@ L2 Network group by Default Gateway, Network Address
 L2 Network where VM Count = 0
 L2 Network where VM Count = 0 group by Network Address
 L2 Network where VM Count > 0 group by Network Address, VM Count
-
 Router Interface group by Device
 Router Interface where device = 'w1c04-vrni-tmm-7050sx-1'
 ```
 
 #### Traffic Analysis - Routing and Aggregation <a name="query-traffic-routing"></a>
 - Flows by Subnet
-
 ```
 flows group by subnet order by sum(bytes)
 ```
 
 - Flows by Destination VM
-
 ```
 flows group by Destination VM order by sum(bytes)
 ```
 
 - Show highest VM->VM pairs by Byte Rate (Routed)
-
 ```
 sum(bytes) of flows where Flow Type = 'Routed' group by Source VM, Destination VM order by avg(Bytes Rate)
 ```
 
 - Show highest VM->VM pairs by Byte Rate (Switched)
-
 ```
 sum(bytes) of flows where Flow Type = 'Switched' group by Source VM, Destination VM order by avg(Bytes Rate)
 ```
 
 - Show highest Subnet->Subnet pairs by Byte Rate (Routed)
-
 ```
 sum(bytes) of flows where Flow Type = 'Routed' group by Source Subnet, Destination Subnet order by avg(Bytes Rate)
 ```
 
 - Show highest Subnet->Subnet pairs by Byte Rate (Switched)
-
 ```
 sum(bytes) of flows where Flow Type = 'Switched' group by Source Subnet, Destination Subnet order by avg(Bytes Rate)
 ```
 
 #### Traffic Analysis - Ports and Services <a name="query-traffic-services"></a>
 - List VMs accepting UDP 53 (DNS) connections
-
 ```
 list(Destination VM) of flows where Destination Port = 53
 ```
 
 - List flows by port-range
-
 ```
 flows where (port >= 100 AND port <= 200)
 ```
 
 - Show RDP connections to VMs (List)
-
 ```
 flows where Destination Port == 3389
 ```
 
 - Show RDP connections to VMs from specific `Source Country`
-
 ```
 flows where Destination Port == 3389 and Source Country == 'China'
 ```
 
 - Show RDP connections to VMs (List VM pairs)
-
 ```
 flows where Destination Port == 3389 group by Destination VM, Source VM
 ```
 
 - Show RDP connections to VMs (List IP-VM pairs)
-
 ```
 flows where Destination Port == 3389 group by Destination VM, Source IP Address
 ```
 
 - Show RDP connections to VMs (List Source Country)
-
 ```
 flows where Destination Port == 3389 group by Destination VM, Source Country
 ```
 
 #### VMs, Routed via Specific L3 Device <a name="query-vms-routed-specific"></a>
 - Show me all VMs that use L3 Router `w1c04-vrni-tmm-7050sx-1`
-
 ```
 vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))
 ```
 
 - Show me all VMs that use L3 Router `w1c04-vrni-tmm-7050sx-1` - group by VLAN
-
 ```
 vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1')) group by VLAN
 ```
 
 - Show me all VMs that use L3 Router `w1c04-vrni-tmm-7050sx-1` - group by VLAN, SUBNET
-
 ```
 vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1')) group by VLAN, Network Address
 ```
 
 - Show me all VMs that use any L3 Router - group by Router Interface, Network Address
-
 ```
 vm group by Default Gateway Router Interface, Network Address
 ```
 
 #### VM Flow Hairpinning and L3 Subnet Dependencies <a name="query-vms-hairpinning"></a>
 - Show me traffic between VMs grouped by L3 router device
-
 ```
 vms group by Default Gateway Router, Default Gateway order by sum(Total Network Traffic)
 ```
 
 - Show me VM->VM pairs of flows hairpinning via any L3 Router
-
 ```
 sum(Bytes) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host') group by Source VM, Destination VM order by avg(Byte Rate)
 ```
 
 - Show me aggregated Bytes and Byte rate of hairpinning traffic
-
 ```
 sum(bytes), avg(Bytes Rate) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host')
 ```
 
 - Show me physical Hosts from where I am hairpinning traffic
-
 ```
 flows where (Flow Type = 'Routed' and Flow Type = 'Same Host') group by Host order by sum(Bytes)
 ```
 
 - Show me VM->VM hairpinning from a specific host
-
 ```
 flows where host = 'esx003-ovh-ns103551.vrni.cmbu.org' and (Flow Type = 'Routed' and Flow Type = 'Same Host') group by Source VM, Destination VM order by sum(bytes)
 ```
@@ -526,32 +497,27 @@ flows where host = 'esx003-ovh-ns103551.vrni.cmbu.org' and (Flow Type = 'Routed'
 #### Flows: Aggegration Prefix - Traffic Stats <a name="query-flows-aggregation"></a>
 A useful query prefix for constructing aggregation traffic stats for `Flows`  
 Replace **`<flow.query>`** with actual query filter syntax.  
-
 ```
 sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RTT) of flows where <flow.query>
 ```
 
 #### Flows: Routed, Same Host <a name="query-flows-routed-samehost"></a>
 - Show me aggregated Bytes and Byte Rate of hairpinning traffic via L3 Router (includes VM->Physical flows)
-
 ```
 sum(Bytes), sum(Bytes Rate) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host')
 ```
 
 - Show me hosts from where I am hairpinning traffic (includes VM->Physical flows) - group by `Host`
-
 ```
 sum(Bytes), sum(Bytes Rate) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host') group by Host order by sum(Bytes)
 ```
 
 - Show me VM->VM pairs hairpinning traffic via any L3 Router in same Host
-
 ```
 sum(Bytes), sum(Bytes Rate) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host') group by Source VM, Destination VM order by sum(Bytes)
 ```
 
 - Show me VM->VM hairpinning via any L3 Router from specific host `esx003-ovh-ns103551.vrni.cmbu.org`
-
 ```
 sum(Bytes), sum(Bytes Rate) of flows where host = 'esx003-ovh-ns103551.vrni.cmbu.org' and (Flow Type = 'Routed' and Flow Type = 'Same Host') group by Source VM, Destination VM order by sum(bytes)
 ```
@@ -559,117 +525,104 @@ sum(Bytes), sum(Bytes Rate) of flows where host = 'esx003-ovh-ns103551.vrni.cmbu
 #### Flows: Routed, VM->VM, via any L3 Router <a name="query-flows-routed-any"></a>
 
 - Show aggregate traffic stats of all VM->VM flows via any L3 Router
-
 ```
 sum(Bytes) of flows where (Flow Type = 'Routed' and Flow Type = 'VM-VM')
 ```
 
 - Show aggregate traffic stats of all `Same Host` VM->VM flows via any L3 Router
-
 ```
 sum(bytes) of flows where (Flow Type = 'Routed' and Flow Type = 'VM-VM' and Flow Type = 'Same Host')
 ```
 
 - Show aggregate traffic stats of all `Diff Host` VM->VM flows via any L3 Router
-
 ```
 sum(bytes) of flows where (Flow Type = 'Routed' and Flow Type = 'VM-VM' and Flow Type = 'Diff Host')
 ```
 
 - Show aggregate traffic stats of `Same Host` VM->VM flows that are hairpinning via any L3 Router
-
 ```
 sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RTT) of flows where (Flow Type = 'Routed' and Flow Type = 'VM-VM' and Flow Type = 'Same Host')
 ```
 
 - Show me VM->VM pairs and traffic stats of `Same Host` VM->VM flows that are hairpinning via any L3 Router
-
 ```
 sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RTT) of flows where (Flow Type = 'Routed' and Flow Type = 'VM-VM') group by Source VM, Destination VM order by sum(Bytes)
 ```
 
 #### Flows: Routed, VM->VM via specific L3 Router <a name="query-flows-routed-specific"></a>
 - Show me all flows via L3 Router `w1c04-vrni-tmm-7050sx-1` 
-
 ```
 flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1')))
 ```
 
 - Show me aggregate packet stats of all flows via L3 Router `w1c04-vrni-tmm-7050sx-1`
-
 ```
 sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RTT) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1')))
 ```
 
 - Show me all flows (East-West + North-South) via L3 Router `w1c04-vrni-tmm-7050sx-1`
-
 ```
 sum(bytes) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))) AND (Flow Type = 'Routed')
 ```
 
 - Show me all North-South (VM->Internet) flows via L3 Router `w1c04-vrni-tmm-7050sx-1`
-
 ```
 sum(bytes) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))) AND (Flow Type = 'Routed' and Flow Type = 'Internet')
 ```
 
 - Show me all East-West (VM->VM and VM->Physical) flows via L3 Router `w1c04-vrni-tmm-7050sx-1`
-
 ```
 sum(bytes) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))) AND (Flow Type = 'Routed' and Flow Type = 'East-West')
 ```
 
 - Show me all VM->VM flows via L3 Router `w1c04-vrni-tmm-7050sx-1`
-
 ```
 sum(bytes) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))) AND (Flow Type = 'Routed' and Flow Type = 'VM-VM')
 ```
 
 - Show me all VM->Physical flows via L3 Router `w1c04-vrni-tmm-7050sx-1`
-
 ```
 sum(bytes) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))) AND (Flow Type = 'Routed' and Flow Type = 'VM-Physical')
 ```
 
 - Show me VM->VM pairs and traffic stats of all flows via L3 Router `w1c04-vrni-tmm-7050sx-1` 
-
 ```
 sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RTT) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))) group by Source VM, Destination VM order by sum(Bytes)
 ```
 
 - Show me SUBNET->SUBNET pairs and traffic stats of all flows via L3 Router `w1c04-vrni-tmm-7050sx-1` 
-
 ```
 sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RTT) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))) group by Source Subnet, Destination Subnet order by sum(Bytes)
 ```
 
 #### Moving, Migrating Applications <a name="migration"></a>
-When doing multiple applications and forming Move Groups, create a nested application called ‘Move Group 1’ and make the example applications a part of it. Then use the group name in the below searches
+When doing multiple applications and forming Move Groups, create a parent container application called ‘Move_Group_1’ and make the specific applications a part of it. Then use the group name in the below searches
 
 - Show incoming application traffic
 ```
-series(sum(byte rate),300) of flow where destination application = ‘App1'
-max(series(sum(byte rate),300)) of flow where destination application = ‘App1’
+series(sum(byte rate),300) of flow where destination application = ‘‘Move_Group_1'
+max(series(sum(byte rate),300)) of flow where destination application = ‘Move_Group_1’
 Get outgoing traffic by substituting destination with source.
 ```
 
 - Show internet traffic
+Get outgoing traffic also by substituting destination with source.
 ```
-series(sum(byte rate),300) of flow where source application = ‘App1' and flow type = 'Destination is Internet’
-max(series(sum(byte rate),300)) of flow where destination application = ‘App1’
-Get outgoing traffic by substituting destination with source.
+series(sum(byte rate),300) of flow where source application = ‘Move Group 1' and flow type = 'Destination is Internet’
+max(series(sum(byte rate),300)) of flow where destination application = ‘Move_Group_1’
+
 ```
 
 - Show packets p/s to internet
+Get outgoing traffic also by substituting destination with source.
 ```
-series(sum(flow.totalPackets.delta.summation.number),300) of Flow where source Application like 'Funbike' and Flow Type = 'Destination is Internet' 
-max(series(sum(flow.totalPackets.delta.summation.number),300)) of Flow where source Application like 'Funbike' and Flow Type = 'Destination is Internet' 
-Get outgoing traffic by substituting destination with source.
+series(sum(flow.totalPackets.delta.summation.number),300) of Flow where source Application like 'Move_Group_1' and Flow Type = 'Destination is Internet' 
+max(series(sum(flow.totalPackets.delta.summation.number),300)) of Flow where source Application like 'Move_Group_1' and Flow Type = 'Destination is Internet' 
 ```
 
 - Show traffic to remaining on-prem apps
 ```
-series(sum(byte rate),300) of flow where application = 'Funbike' and Flow Type = 'East-West' 
+series(sum(byte rate),300) of flow where application = 'Move_Group_1' and Flow Type = 'East-West' 
 ```
 
 ## Import/Export Applications <a name="applications"></a>
