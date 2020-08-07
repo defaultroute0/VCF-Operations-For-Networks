@@ -32,6 +32,7 @@
 	10. [Flows, VM-VM, Routed, on Same Host](#query-flows-routed-samehost)
 	11. [Flows, VM-VM, Routed, via any L3 Router](#query-flows-routed-any)
 	12. [Flows, VM-VM, Routed, via specific L3 Router](#query-flows-routed-specific)
+	13. [Moving, Migrating Applications] (#migration)
 3. [Import/Export Applications](#applications)
 
 ## vRNI Trial Process <a name="introduction"></a>
@@ -640,6 +641,35 @@ sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RT
 
 ```
 sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RTT) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))) group by Source Subnet, Destination Subnet order by sum(Bytes)
+```
+
+#### Moving, Migrating Applications <a name="migration"></a>
+When doing multiple applications and forming Move Groups, create a nested application called ‘Move Group 1’ and make the example applications a part of it. Then use the group name in the below searches
+
+- Show incoming application traffic
+```
+series(sum(byte rate),300) of flow where destination application = ‘App1'
+max(series(sum(byte rate),300)) of flow where destination application = ‘App1’
+Get outgoing traffic by substituting destination with source.
+```
+
+- Show internet traffic
+```
+series(sum(byte rate),300) of flow where source application = ‘App1' and flow type = 'Destination is Internet’
+max(series(sum(byte rate),300)) of flow where destination application = ‘App1’
+Get outgoing traffic by substituting destination with source.
+```
+
+- Show packets p/s to internet
+```
+series(sum(flow.totalPackets.delta.summation.number),300) of Flow where source Application like 'Funbike' and Flow Type = 'Destination is Internet' 
+max(series(sum(flow.totalPackets.delta.summation.number),300)) of Flow where source Application like 'Funbike' and Flow Type = 'Destination is Internet' 
+Get outgoing traffic by substituting destination with source.
+```
+
+- Show traffic to remaining on-prem apps
+```
+series(sum(byte rate),300) of flow where application = 'Funbike' and Flow Type = 'East-West' 
 ```
 
 ## Import/Export Applications <a name="applications"></a>
