@@ -3,7 +3,23 @@
 1. [Trial Process](#overview)
 	1. [Prerequisites](#prerequisites)
 	2. [Installation](#installation)
-2. [Useful Queries](#queries)
+2. [General Queries](#general)
+	1. [Searches/Demos](#search)
+	2. [TopN](#topn)
+	3. [Workloads VMs](#query-vm2)
+	4. [Applications](#apps)
+	5. [Network Stuff](#network)
+	6. [Path Tracing](#tracing)
+	7. [Flows](#flows)
+	8. [Dubious Flows](#badflows)
+	9. [Physical Flows](#phyflows)
+	10. [Security Stuff](#security)
+	11. [Compliance and Auditing](#auditing)
+	12. [Managing NSX Domain](#nsxday2)
+	13. [Public Cloud](#publiccloud)
+	14. [VeloCloud](#velocloud)
+	15. [Kubernetes](#k8s)
+3. [Traffic Queries](#queries)
 	1. [Security](#query-security)
 	2. [VM by Application](#query-vm-application)
 	3. [VM by Network](#query-vm-network)
@@ -108,37 +124,252 @@ High-level steps:
 6. Finalise Proxy install via setup CLI
 7. Login to Platform VM UI (HTTPS) and configure vCenter / VDS datasources (IPFIX)
 
-## Useful Queries <a name="queries"></a>
 
-vRNI can provide a dizzying array of outputs and data analysis.  
+
+## General Queries <a name="general"></a>
+
+vRNI is a big data analytics set of of end to end environment, physical, virtual, AWS, NSX-T, ASA fireall as an example. Its the context of all thius against real metrics / networkflows which provides great value to networks, security, ops, and cloud teams. 
 The usefulness of these outputs is only as good as the questions asked of the system, as constructed via **queries**  
-Here is a collection of query information that I have personally found useful.  
+Here is a cool list
 
-**Basic Search Queries**
+#### Search Posters and Demos <a name="search"></a>
 
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/5.2/com.vmware.vrni.using.doc/GUID-176F5A09-2325-41EA-A315-58738CB4F117.html
+https://vrealize.vmware.com/t/vrealize-network-insight/
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/5.3/com.vmware.vrni.using.doc/GUID-176F5A09-2325-41EA-A315-58738CB4F117.html
 
-**Advanced Search Queries**
-
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/5.2/com.vmware.vrni.using.doc/GUID-6D40445C-8BBD-4BCE-88D5-BD4A9D733EFF.html
-
-#### Security Rules <a name="query-security"></a>
+#### TOP N  <a name="topn"></a>
 ```
+topn
+```
+
+#### VMs <a name="query-vm2"></a>
+```
+vms group by Application
+vm group by network address
+vm group by subnet
+vm by vlan
+vm by Max Network Rate 
+vm by max network rate where vxlan = '3TierApp02-DB' 
+vm where CPU Ready Rate > 0.5
+vm where CPU Ready Rate  order by Max Network Rate 
+vm where cpu usage rate > 80%
+vm where CPU Wait Rate order by Max Network Rate 
+vm by Read Latency where RW IOPS 
+vm by RW IOPS where Max Network Rate and CPU Ready Rate and CPU Wait Rate and Read Latency and RW Throughput and Read IOPS and Read Throughput and Write IOPS and Write Latency and Write Throughput 
+```
+
+#### Applications you define or learn via ML <a name="apps"></a>
+```
+application
+application 'HIVE Training'
+sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RTT) of flows where Destination Application like 'Funbike' 
+```
+
+#### Network Stuff <a name="network"></a>
+```
+l2 network order by VM Count 
+L2 Network where VM Count > 0 group by Network Address, VM Count
+show vlan by Host Count 
+10.100.23.43
+Vlan 'vlan-10'
+Vxlan '3TierApp02-Web'
+show vlan by Network Rate 
+source L2 Network of Flow order by Session Count 
+aci fabric 'NSX-ACI-Fabric1'
+port where Max Packet Drops 
+aci fabric
+```
+
+- Routers
+```
+Show router interface
+port where Max Packet Drops 
+router interface where Rx Packet Drops > 0
+router interface order by Max Network Rate  
+router where OSPF  
+show Router Interface Packet Drop
+port where Max Packet Drops 
+show Router Interface where Interface Utilization > 70
+show vrf
+show router
+show Route '10.114.219.232/29'  
+show route where change
+vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))
+vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1')) group by VLAN
+```
+
+- Switches
+```
+show Juniper Switch Data Source 
+show Switch Port where Carrier Losses Detected 
+show Switch Port where Collisions Detected 
+show Switch Port where change
+show Switch Port where event
+show Switch Port where problem
+switch where Switch Ports like 'Ethernet1/1' 
+show Switch Port where interface utilization
+show Switch Port where  Interface Peak Buffer Utilization  
+show Switch Port where Learnt Mac Address = '00:25:90:EB:BA:EE' 
+show Switch Port where Learnt IP Address like '10.114.219.139' 
+show Switch Port where Network Rcv Errors 
+port where Max Packet Drops 
+show Switch Port where Jumbo Rx Packets 
+show Switch Port where Administrative Status like 'UP' and Operational Status like 'DOWN'  
+show Switch Port where Discarded Tx Packets 
+show Switch Port where Network Out Qlen != 0
+```
+
+#### Path Tracing <a name="tracing"></a>
+```
+VMware VM 'Web03-ACI' to VMware VM 'DB01a-ACI'
+```
+
+#### Flows <a name="flows"></a>
+```
+flows    // then >> flow insights in topright 
+flows  in last 72 hours
+show flows where Subnet Network like '10.173.164.0/24' and Destination Continent != 'North America' 
+flows where Destination Port == 3389
+list(destination VM) of flow where destination port = 53  //listening on inbound UDP53/TCP53
+show flows between Application 'tanzu tees'  and Application 'HIVE Training'
+show flows from Cluster 'Cluster-1' to Cluster 'PKS' 
+sum(bytes) of flows group by subnet order by sum(bytes)
+sum(bytes) of flow group by port.ianaPortDisplay  //change timerange
+sum(bytes) of flow where Flow Type = 'Switched' group by Network Address order by avg(Bytes Rate)
+sum(bytes) of flows where Flow Type = 'Switched' group by source vm, destination vm order by avg(Bytes Rate)
+sum(bytes) of flow where Flow Type = 'Routed' group by Source Subnet Network, Destination Subnet Network order by avg(Bytes Rate)
+sum(bytes) of flows where Flow Type = 'Routed' group by source vm, destination vm order by avg(Bytes Rate)
+sum(bytes) of flows where vm in (vms where Default Gateway Router Interface in (Router Interface where (device = 'w1c04-vrni-tmm-7050sx-1'))) AND (Flow Type = 'Routed' and Flow Type = 'Internet')
+hairpinning: sum(Bytes) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host') group by Source VM, Destination VM order by avg(Byte Rate)
+hairpinning: sum(bytes), avg(Bytes Rate) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host')
+```
+
+- Over a time series
+```
+series(sum(bytes rate)) of Flows where Application = '3TierApp02' 
+series(sum(byte rate),300) of flow where destination application  = 'Funbike' and Flow Type = 'East-West' 
+```
+
+#### Dubious Flows <a name="badflows"></a>
+```
+vm where Incoming Port = 445 and Operating System like 'Microsoft Windows 10 (64-bit)' 
+vm where Operating System like 'Microsoft Windows XP Professional (32-bit)' 
+flow where Destination Country like 'Russia' 
+flows where Destination Port == 3389 and Source Country == 'China'
+flows where Destination Port == 3389 group by Destination VM, Source Country
+flow where destination port = 22 and source continent not 'oceania' order by bytes rate 
+show flows from Cluster 'Management' to 'Internet-Gateway' 
+```
+
+#### Physical Flows <a name="phyflows"></a>
+```
+show flow where flow type = 'Source is Physical' group by port.ianaPortDisplay
+flow where Flow Type = 'Source is Physical' and Flow Type = 'Destination is Physical' order by port.ianaPortDisplay
+```
+
+
+#### Security Rules <a name="security"></a>
+```
+plan security
+pci dashboard
+pci compliance of Cluster 'Cluster-1'
+Firewall Rules
 firewall rules where Service Any = true
 firewall rules where Service Any = true and action = ALLOW and destination ip = '0.0.0.0'
 firewall rules from VM 'App01-ACI' to VM 'DB02-ACI'
+show flow where firewall action = 'DENY' 
+NSX-V Security Group 'Prod-Web'
+NSX-T Security Group 'NSX-INTELLIGENCE-GROUP'
 ```
 
-#### VMs in an Application <a name="query-vm-application"></a>
+#### Compliance and Auditing <a name="audit"></a>
 ```
-vms group by Application
+changes
+problems
+events
 ```
 
-#### VMs on a Network <a name="query-vm-network"></a>
+#### Managing NSX Domain <a name="nsxday2"></a>
 ```
-vm group by network address
-vm group by subnet
+NSX-V Manager 'wdcnsx-master.cmbu.local'
+NSX-T Manager 'sc2vc05-vip-nsx-mgmt.cmbu.local'
+NSX-T Security Group '
+show flows order by Average TCP RTT 
+Average Physical Network Flow Latency 
+show flows where Maximum TCP RTT > 150
+flows in last 7 days   >> FLOW INSIGHTS >> NETWORK PERFORMANCE
+show 'Unused DFW Rules' 
+show 'Unused NSX Firewall Rules' 
+show 'Masked DFW Rules' show nsx ru
+
 ```
+
+#### Public Cloud  <a name="publiccloud"></a>
+```
+aws
+aws EC2
+aws vpc
+aws Account 'AWS_879816619487'
+aws VPC Peering Connection
+aws Virtual Private Gateway
+aws VPN Connection
+plan AWS VPC 'vRNI-Demo'
+azure
+show flows where Azure Virtual Network 
+```
+
+- Path tracing in Cloud
+```
+AWS EC2 'vrni-tmm-lab-parse' to AWS EC2 'vrni-tmm-lab-parse-vpc2' 
+```
+
+- Flows inside Cloud
+```
+Flow where AWS VPC = 'vRNI-Demo' order by bytes
+```
+
+- Path tracing in Cloud
+```
+AWS EC2 'vrni-tmm-lab-parse' to AWS EC2 'vrni-tmm-lab-parse-vpc2' 
+AWS EC2 'HIVE-Storage-Server'  to internet
+```
+
+#### VeloCloud <a name="velocloud"></a>
+- Velo stuff collected from Edge UDP2055, and API to VCO, and VCG
+```
+VeloCloud Enterprise 'vRNI Field Demo'
+VeloCloud Edge 'Detroit, Branch'
+```
+
+- Velo Flows up to 30 days
+```
+flow group by SDWAN Edge
+flow group by Source SDWAN edge where Application like 'HIVE Training'
+flow group by Source SDWAN edge where Application != 'HIVE Training'
+show flows where Destination Application = 'HIVE Training' order by Source SDWAN edge  
+```
+
+- Time series graphs
+```
+series(sum(byte rate)) of flow where source application = 'HIVE Training' and SDWAN Edge = 'Rotterdam, Branch' 
+```
+
+#### Kubernetes <a name="k8s"></a>
+- Where visibility gets really hard...
+```
+Kubernetes Dashboard
+Kubernetes Namespace 'pks-system'
+Kubernetes Cluster 'k8s-cluster-2'
+Kubernetes Service 'carts'
+```
+
+
+
+
+
+
+
+## Traffic Queries <a name="queries"></a>
 
 #### Traffic Analysis - L2 Network <a name="query-traffic-network"></a>
 
