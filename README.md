@@ -1,4 +1,4 @@
-# vRealize Network Insight - Traffic Analysis
+# vRealize Network Insight - Useful Queries
 
 1. [Trial Process](#overview)
 	1. [Prerequisites](#prerequisites)
@@ -19,7 +19,7 @@
 	13. [Public Cloud](#publiccloud)
 	14. [VeloCloud](#velocloud)
 	15. [Kubernetes](#k8s)
-3. [Traffic Queries](#queries)
+3. [Traffic Analysis Queries](#queries)
 	1. [Security](#query-security)
 	2. [VM by Application](#query-vm-application)
 	3. [VM by Network](#query-vm-network)
@@ -137,7 +137,7 @@ Here is a cool list
 https://vrealize.vmware.com/t/vrealize-network-insight/
 https://docs.vmware.com/en/VMware-vRealize-Network-Insight/5.3/com.vmware.vrni.using.doc/GUID-176F5A09-2325-41EA-A315-58738CB4F117.html
 
-#### TOP N  <a name="topn"></a>
+#### Top List of Entities  <a name="topn"></a>
 ```
 topn
 ```
@@ -369,7 +369,7 @@ Kubernetes Service 'carts'
 
 
 
-## Traffic Queries <a name="queries"></a>
+## Traffic Analysis Queries <a name="queries"></a>
 
 #### Traffic Analysis - L2 Network <a name="query-traffic-network"></a>
 
