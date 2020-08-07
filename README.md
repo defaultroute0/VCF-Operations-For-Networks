@@ -599,10 +599,11 @@ sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RT
 When doing multiple applications and forming Move Groups, create a parent container application called ‘Move_Group_1’ and make the specific applications a part of it. Then use the group name in the below searches
 
 - Show incoming application traffic
+Get outgoing traffic by substituting destination with source.
 ```
 series(sum(byte rate),300) of flow where destination application = ‘‘Move_Group_1'
 max(series(sum(byte rate),300)) of flow where destination application = ‘Move_Group_1’
-Get outgoing traffic by substituting destination with source.
+
 ```
 
 - Show internet traffic
@@ -610,7 +611,6 @@ Get outgoing traffic also by substituting destination with source.
 ```
 series(sum(byte rate),300) of flow where source application = ‘Move Group 1' and flow type = 'Destination is Internet’
 max(series(sum(byte rate),300)) of flow where destination application = ‘Move_Group_1’
-
 ```
 
 - Show packets p/s to internet
