@@ -129,9 +129,10 @@ High-level steps:
 
 ## General Queries <a name="general"></a>
 
-vRNI is a big data analytics set of of end to end environment, physical, virtual, AWS, NSX-T, ASA fireall as an example. Its the context of all thius against real metrics / networkflows which provides great value to networks, security, ops, and cloud teams. 
+vRNI is a big data analytics set of of end to end environment, physical, virtual, AWS, NSX-T, Nexus Switches, ASA Palo firewalls as an example. It's the context of all this against real metrics / network flows which provides great insight to networks, security, operations, and cloud teams. 
+
 The usefulness of these outputs is only as good as the questions asked of the system, as constructed via **queries**  
-Here is a cool list
+Here is a useful list
 
 #### Search Posters and Demos <a name="search"></a>
 
