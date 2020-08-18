@@ -35,7 +35,7 @@
 	13. [Moving, Migrating Applications](#migration)
 3. [Import/Export Applications](#applications)
 
-## vRNI Trial Process <a name="introduction"></a>
+## vRNI Trial Process <a name="overview"></a>
 
 The first step is to register for the VRNI trial and download the appliance files.  
 You can then copy the OVAs onto a vSphere Datastore in your management environment ready to go, as this will greatly simplify the process.  
