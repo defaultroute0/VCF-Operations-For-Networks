@@ -152,6 +152,7 @@ vm group by subnet
 vm by vlan
 vm by Max Network Rate 
 vm by max network rate where vxlan = '3TierApp02-DB' 
+flow where vm in (vm where cpu usage rate > 90%)
 vm where CPU Ready Rate > 0.5
 vm where CPU Ready Rate  order by Max Network Rate 
 vm where cpu usage rate > 80%
@@ -230,6 +231,7 @@ VMware VM 'Web03-ACI' to VMware VM 'DB01a-ACI'
 ```
 flows    // then >> flow insights in topright 
 flows  in last 72 hours
+flow where vm in (vm where cpu usage rate > 90%)
 show flows where Subnet Network like '10.173.164.0/24' and Destination Continent != 'North America' 
 flows where Destination Port == 3389
 list(destination VM) of flow where destination port = 53  //listening on inbound UDP53/TCP53
