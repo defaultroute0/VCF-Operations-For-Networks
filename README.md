@@ -608,6 +608,16 @@ max(series(sum(byte rate),300)) of flow where destination application = ‘Move_
 Get outgoing traffic by substituting destination with source.
 ```
 
+- Show applications consuming vlan 10 so phy fw's and phy LB's can be coordinated
+```
+application where ip endpoint.network interface.L2 Network = 'vlan-10' 
+```
+
+- Inventory and Xax use
+```
+sum(CPU Cores), sum(Memory Consumed) of VMs where application = 'Migration Wave 1'
+```
+
 - Show internet traffic
 ```
 series(sum(byte rate),300) of flow where source application = ‘Move Group 1' and flow type = 'Destination is Internet’
