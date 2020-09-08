@@ -599,7 +599,7 @@ sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RT
 ```
 
 #### Moving, Migrating Applications <a name="migration"></a>
-When doing multiple applications and forming Move Groups, create a parent container application called ‘Move_Group_1’ and make the specific applications a part of it. Then use the group name in the below searches
+When doing multiple applications and forming Move Groups, create a parent container application called ‘Move_Group_1’ and make the specific applications a part of it. Then use the group name in the below searches. Ref: https://cloud.vmware.com/community/2019/12/10/planning-application-migration-vmware-cloud-aws-vrealize-network-insight-cloud/
 
 - Show incoming application traffic
 ```
