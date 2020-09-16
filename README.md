@@ -645,7 +645,7 @@ This workflow leverages the vRNI Python SDK.
 
 #### 1. Create new Centos VM
 Build a new minimal Centos VM to run the necessary scripts.  
-For this, you can use my unattended install procedure here:  
+For this, you can use APNEX's unattended install procedure here:  
 https://github.com/apnex/pxe
 
 #### 2. Install Python and pre-requisite packages
