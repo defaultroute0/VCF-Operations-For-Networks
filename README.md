@@ -16,9 +16,10 @@
 	10. [Security Stuff](#security)
 	11. [Compliance and Auditing](#auditing)
 	12. [Managing NSX Domain](#nsxday2)
-	13. [Public Cloud](#publiccloud)
-	14. [VeloCloud](#velocloud)
-	15. [Kubernetes](#k8s)
+	13. [VMC](#vmc)
+	14. [Public Cloud](#publiccloud)
+	15. [VeloCloud](#velocloud)
+	16. [Kubernetes](#k8s)
 3. [Traffic Analysis Queries](#queries)
 	1. [Security](#query-security)
 	2. [VM by Application](#query-vm-application)
@@ -306,6 +307,19 @@ show 'Unused DFW Rules'
 show 'Unused NSX Firewall Rules' 
 show 'Masked DFW Rules' show nsx ru
 
+```
+#### VMC  <a name="vmc"></a>
+```
+VMC SDDC 'CMBU-TMM'
+NSX Policy Manager '10.73.185.131'
+vnic count, cpu count of vms where SDDC Type = 'VMC'  order by CPU Usage Rate 
+sum (bytes), sum(packets) of flows where source sddc = 'CMBU-TMM' and flow type = 'Destination is internet' 
+max(series(sum(byte rate),300)) of flow where Destination SDDC not in ( 'CMBU-TMM' )
+max(series(sum(byte rate),300)) of flow where source SDDC in ( 'CMBU-TMM' ) and Destination SDDC not in ( 'CMBU-TMM' )
+series(sum(byte rate),300) of flow where Source SDDC = 'CMBU-TMM'  and Flow Type = 'East-West' 
+flow by Average TCP RTT where SDDC = 'CMBU-TMM' 
+show hosts where SDDC Type = 'VMC' 
+flows where Source SDDC = 'CMBU-TMM' and Destination SDDC = 'CMBU-TMM'  // >>pick a flow >> host
 ```
 
 #### Public Cloud  <a name="publiccloud"></a>
