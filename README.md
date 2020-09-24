@@ -320,6 +320,7 @@ series(sum(byte rate),300) of flow where Source SDDC = 'CMBU-TMM'  and Flow Type
 flow by Average TCP RTT where SDDC = 'CMBU-TMM' 
 show hosts where SDDC Type = 'VMC' 
 flows where Source SDDC = 'CMBU-TMM' and Destination SDDC = 'CMBU-TMM'  // >>pick a flow >> host
+VMC Direct Connect '7224-10.73.185.131'
 ```
 
 #### Public Cloud  <a name="publiccloud"></a>
