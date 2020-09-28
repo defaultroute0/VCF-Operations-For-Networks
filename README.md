@@ -319,6 +319,9 @@ max(series(sum(byte rate),300)) of flow where source SDDC in ( 'CMBU-TMM' ) and 
 series(sum(byte rate),300) of flow where Source SDDC = 'CMBU-TMM'  and Flow Type = 'East-West' 
 flow by Average TCP RTT where SDDC = 'CMBU-TMM' 
 show hosts where SDDC Type = 'VMC' 
+show hosts where Total Packet Drop Ratio = 0 and SDDC Type = 'VMC' 
+show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and SDDC Type = 'VMC' 
+show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and Max Latency and Active Memory > 20 gb and Total Network Traffic and Bus Resets and SDDC Type = 'VMC' 
 flows where Source SDDC = 'CMBU-TMM' and Destination SDDC = 'CMBU-TMM'  // >>pick a flow >> host
 VMC Direct Connect '7224-10.73.185.131'
 ```
