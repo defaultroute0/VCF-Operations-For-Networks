@@ -333,13 +333,18 @@ series(sum(byte rate),300) of flow where Source SDDC = 'CMBU-TMM'  and Flow Type
 flows where Source SDDC = 'CMBU-TMM'   // add side filter for TCP RTT and PORT 53
 flows where src ip = 192.168.10.3 and dst ip = 172.16.43.56        //shows sec groups, hosts, rules applied to flow?
 flow by Average TCP RTT where SDDC = 'CMBU-TMM' 
-show flows       //then Flow Insights >> Network performance
+show flows       //then Flow Insights 
+      - View Top Talkers by Volume (GB), Rate (Gbit p/s), Session Count, and Flow Counts
+      - Group by: VMs, Clusters, Segments, Security Groups, and more.
+show flows       //then Flow Insights >>  Network performance for NPM
 flows where Source SDDC = 'CMBU-TMM' and Destination SDDC = 'CMBU-TMM'  // >>pick a flow >> host
 flows where application = 'MyCRM'
 show hosts where SDDC Type = 'VMC' 
 show hosts where Total Packet Drop Ratio = 0 and SDDC Type = 'VMC' 
 show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and SDDC Type = 'VMC' 
 show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and Max Latency and Active Memory > 20 gb and Total Network Traffic and Bus Resets and SDDC Type = 'VMC' 
+router interface where Rx packet drops > 0    //troubleshoot uplink ports
+NSX-T Logical Switch where Rx Packet Drops > 0       //troubleshoot segments
 VMC Direct Connect '7224-10.73.185.131'
 ```
 
