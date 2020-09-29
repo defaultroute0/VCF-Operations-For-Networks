@@ -312,17 +312,34 @@ show 'Masked DFW Rules' show nsx ru
 ```
 VMC SDDC 'CMBU-TMM'
 NSX Policy Manager '10.73.185.131'
+applications
+plan security of cluster xxxx
+plan security of vc manager   // DROPDOWN ‘FLOW TYPE’ > All Unprotected Flows 
+plan security of application 'MyCRM'  //change 'GroupBy' to VLAN/VxLAN Segments - Security Groups etc
+pci compliance of Cluster 'Cluster-1'
+event
+changes
+problems
+topn      //shopping list of issues
+topn in VMC SDDC 'CMBU-TMM'    ////shopping list of issues in VMC
+vm where SDDC Type = 'VMC' 
+VMware VM 'xxxxxxx' to VMware VM 'yyyyyy'      //within VMC
+VMware VM 'xxxxxxx' to VMware VM 'zzzzzz'       //back to on-prem via Dx
 vnic count, cpu count of vms where SDDC Type = 'VMC'  order by CPU Usage Rate 
 sum (bytes), sum(packets) of flows where source sddc = 'CMBU-TMM' and flow type = 'Destination is internet' 
 max(series(sum(byte rate),300)) of flow where Destination SDDC not in ( 'CMBU-TMM' )
 max(series(sum(byte rate),300)) of flow where source SDDC in ( 'CMBU-TMM' ) and Destination SDDC not in ( 'CMBU-TMM' )
 series(sum(byte rate),300) of flow where Source SDDC = 'CMBU-TMM'  and Flow Type = 'East-West' 
+flows where Source SDDC = 'CMBU-TMM'   // add side filter for TCP RTT and PORT 53
+flows where src ip = 192.168.10.3 and dst ip = 172.16.43.56        //shows sec groups, hosts, rules applied to flow?
 flow by Average TCP RTT where SDDC = 'CMBU-TMM' 
+show flows       //then Flow Insights >> Network performance
+flows where Source SDDC = 'CMBU-TMM' and Destination SDDC = 'CMBU-TMM'  // >>pick a flow >> host
+flows where application = 'MyCRM'
 show hosts where SDDC Type = 'VMC' 
 show hosts where Total Packet Drop Ratio = 0 and SDDC Type = 'VMC' 
 show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and SDDC Type = 'VMC' 
 show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and Max Latency and Active Memory > 20 gb and Total Network Traffic and Bus Resets and SDDC Type = 'VMC' 
-flows where Source SDDC = 'CMBU-TMM' and Destination SDDC = 'CMBU-TMM'  // >>pick a flow >> host
 VMC Direct Connect '7224-10.73.185.131'
 ```
 
