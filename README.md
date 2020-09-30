@@ -306,50 +306,95 @@ flows in last 7 days   >> FLOW INSIGHTS >> NETWORK PERFORMANCE
 show 'Unused DFW Rules' 
 show 'Unused NSX Firewall Rules' 
 show 'Masked DFW Rules' show nsx ru
-
+router interface where Rx packet drops > 0    //troubleshoot uplink ports
+NSX-T Logical Switch where Rx Packet Drops > 0       //troubleshoot segments
 ```
 #### VMC  <a name="vmc"></a>
+
+- Viewing your SDDC and associated NSX
 ```
 VMC SDDC 'CMBU-TMM'
 NSX Policy Manager '10.73.185.131'
-applications
+```
+
+- Defining or Discovering and viewing Applications
+```
+applications    //use hostname, SNOW, or even ML for Flow Based App Discovery
+```
+
+- Troubleshooting - Audit
+```
+event
+changes
+problems
+```
+
+- Troubleshooting - General
+```
+topn      //shopping list of issues
+topn in VMC SDDC 'CMBU-TMM'    ////shopping list of issues in VMC
+vm where SDDC Type = 'VMC'     //// pick one, >> METRICS >> ALL METRICS
+```
+
+- Troubleshooting - Edges
+```
+vm where name like 'NSX-Edge' and sddc type = 'VMC'  //NSX Edge VM in VMC provides the network metrics (Rx Packets, Tx Packets etc)  in the facets and view the metrics graph    // >> METRICS >> ALL METRICS
+```
+
+- Troubleshooting - Hosts
+```
+show hosts where SDDC Type = 'VMC' 
+show hosts where Total Packet Drop Ratio = 0 and SDDC Type = 'VMC' 
+show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and SDDC Type = 'VMC' 
+show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and Max Latency and Active Memory > 20 gb and Total Network Traffic and Bus Resets and SDDC Type = 'VMC' 
+vnic count, cpu count of vms where SDDC Type = 'VMC'  order by CPU Usage Rate 
+```
+
+- Troubleshooting - Performance
+```
+show flows       //then Flow Insights >>  Network performance for NPM
+flow by Average TCP RTT where SDDC = 'CMBU-TMM' 
+flows where Source SDDC = 'CMBU-TMM'   // add side filter for TCP RTT and PORT 53
+flows where src ip = 192.168.10.3 and dst ip = 172.16.43.56        //shows sec groups, hosts, rules applied to flow
+```
+
+- Security Policy
+```
 plan security of cluster xxxx
 plan security of vc manager   // DROPDOWN ‘FLOW TYPE’ > All Unprotected Flows 
 plan security of application 'MyCRM'  //change 'GroupBy' to VLAN/VxLAN Segments - Security Groups etc
 pci compliance of Cluster 'Cluster-1'
-event
-changes
-problems
-topn      //shopping list of issues
-topn in VMC SDDC 'CMBU-TMM'    ////shopping list of issues in VMC
-vm where SDDC Type = 'VMC' 
-VMware VM 'xxxxxxx' to VMware VM 'yyyyyy'      //within VMC
-VMware VM 'xxxxxxx' to VMware VM 'zzzzzz'       //back to on-prem via Dx
-vnic count, cpu count of vms where SDDC Type = 'VMC'  order by CPU Usage Rate 
-sum (bytes), sum(packets) of flows where source sddc = 'CMBU-TMM' and flow type = 'Destination is internet' 
-max(series(sum(byte rate),300)) of flow where Destination SDDC not in ( 'CMBU-TMM' )
-max(series(sum(byte rate),300)) of flow where source SDDC in ( 'CMBU-TMM' ) and Destination SDDC not in ( 'CMBU-TMM' )
-series(sum(byte rate),300) of flow where Source SDDC = 'CMBU-TMM'  and Flow Type = 'East-West' 
-flows where Source SDDC = 'CMBU-TMM'   // add side filter for TCP RTT and PORT 53
-flows where src ip = 192.168.10.3 and dst ip = 172.16.43.56        //shows sec groups, hosts, rules applied to flow?
-flow by Average TCP RTT where SDDC = 'CMBU-TMM' 
+```
+
+- Traffic Profiling and Measurments
+```
 show flows       //then Flow Insights 
       - View Top Talkers by Volume (GB), Rate (Gbit p/s), Session Count, and Flow Counts
       - Group by: VMs, Clusters, Segments, Security Groups, and more.
 show flows       //then Flow Insights >>  Network performance for NPM
 flows where Source SDDC = 'CMBU-TMM' and Destination SDDC = 'CMBU-TMM'  // >>pick a flow >> host
 flows where application = 'MyCRM'
-show hosts where SDDC Type = 'VMC' 
-show hosts where Total Packet Drop Ratio = 0 and SDDC Type = 'VMC' 
-show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and SDDC Type = 'VMC' 
-show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and Max Latency and Active Memory > 20 gb and Total Network Traffic and Bus Resets and SDDC Type = 'VMC' 
-router interface where Rx packet drops > 0    //troubleshoot uplink ports
-NSX-T Logical Switch where Rx Packet Drops > 0       //troubleshoot segments
-VMC Direct Connect '7224-10.73.185.131'
+flows where Source SDDC = 'CMBU-TMM'   // add side filter for TCP RTT and PORT 53
+flows where src ip = 192.168.10.3 and dst ip = 172.16.43.56        //shows sec groups, hosts, rules applied to flow
+VMware VM 'xxxxxxx' to VMware VM 'yyyyyy'      //within VMC
+VMware VM 'xxxxxxx' to VMware VM 'zzzzzz'       //back to on-prem via Dx
+sum (bytes), sum(packets) of flows where source sddc = 'CMBU-TMM' and flow type = 'Destination is internet' 
+max(series(sum(byte rate),300)) of flow where Destination SDDC not in ( 'CMBU-TMM' )
+max(series(sum(byte rate),300)) of flow where source SDDC in ( 'CMBU-TMM' ) and Destination SDDC not in ( 'CMBU-TMM' )
+series(sum(byte rate),300) of flow where Source SDDC = 'CMBU-TMM'  and Flow Type = 'East-West' 
 flows where flow type = 'Direct Connect' group by Connection 
 max(series(sum(Bytes)))of Flows where flow type = Direct Connect 
 max(series(sum(packets)))of Flows where flow type = Direct Connect and group by Connection
 ```
+
+- Connectivity
+```
+NSX Policy Segment where SDDC Type = VMC
+VMware VM 'xxxxxxx' to VMware VM 'yyyyyy'      //within VMC
+VMware VM 'xxxxxxx' to VMware VM 'zzzzzz'       //back to on-prem via Dx
+VMC Direct Connect '7224-10.73.185.131'
+```
+
 
 #### Public Cloud  <a name="publiccloud"></a>
 ```
