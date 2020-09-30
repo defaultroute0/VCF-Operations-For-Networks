@@ -346,6 +346,9 @@ show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and 
 router interface where Rx packet drops > 0    //troubleshoot uplink ports
 NSX-T Logical Switch where Rx Packet Drops > 0       //troubleshoot segments
 VMC Direct Connect '7224-10.73.185.131'
+flows where flow type = 'Direct Connect' group by Connection 
+max(series(sum(Bytes)))of Flows where flow type = Direct Connect 
+max(series(sum(packets)))of Flows where flow type = Direct Connect and group by Connection
 ```
 
 #### Public Cloud  <a name="publiccloud"></a>
