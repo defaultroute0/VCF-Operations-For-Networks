@@ -366,6 +366,7 @@ plan security of cluster xxxx
 plan security of vc manager   // DROPDOWN ‘FLOW TYPE’ > All Unprotected Flows 
 plan security of application 'MyCRM'  //change 'GroupBy' to VLAN/VxLAN Segments - Security Groups etc
 pci compliance of Cluster 'Cluster-1'
+NSX Policy Group 'VMC-Compute-10.72.82.0/24'
 ```
 
 - Traffic Profiling and Measurments
