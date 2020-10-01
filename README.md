@@ -361,7 +361,7 @@ flows where src ip = 192.168.10.3 and dst ip = 172.16.43.56        //shows sec g
 - Security Policy
 ```
 plan security
-     // by default you view the wagon wheel as VLAN/VxLAN, if you use other groupings to view it, the FW recommendations are based on the grouping you’ve selected. 		If you have more groups (application constructs, security groups, anything) and then group the security planner with those, the recommendations will 		get narrower too
+     // by default you view the wagon wheel as VLAN/VxLAN, if you use other groupings to view it, the FW recommendations are based on the grouping you’ve selected. 		If you have more groups (application constructs, security groups, anything) and then group the security planner with those, the recommendations will 		get narrower too.  Skin the security planning wheel via 'Group By' VM or Security Groups, the FW recommendations are defined in that way
 plan security of cluster xxxx
 plan security of vc manager   // DROPDOWN ‘FLOW TYPE’ > All Unprotected Flows 
 plan security of application 'MyCRM'  //change 'GroupBy' to VLAN/VxLAN Segments - Security Groups etc
