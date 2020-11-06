@@ -44,7 +44,7 @@ You can then copy the OVAs onto a vSphere Datastore in your management environme
 Also - please read the pre-requisites below as they relate to product versions, vCenter permissions, and the Distributed Switch.  
 
 To get access to the 60-day vRNI Trial you can go here:
-https://www.vmware.com/go/vna-field
+https://www.vmware.com/go/vna
 
 To download the appliances (and get the license key), you can sign in using your my.vmware.com credentials.
 If you do not have a my.vmware.com account - select "create an account" to register first.
