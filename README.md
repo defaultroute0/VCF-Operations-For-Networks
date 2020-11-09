@@ -66,13 +66,17 @@ To set up these VMs - you will require:
 1. 2x static IP addresses to be allocated from a MGMT environment (1 IP per VM)
 2. VMs to be imported into a MGMT environment (OVAs to be copied over to vCenter datastore first, but not yet deployed)
 3. These IP addresses require connectivity/access (L2 or L3) to the MGMT network of vCenter and ESX host mgmt VMK ports
+	ESXi Hosts -> Collector VM (UDP 2055)
+	Collector VM  -> vCentre (TCP 443)
+	Collector VM -> Platform VM (TCP 443)
+	https://ports.vmware.com/home/vRealize-Network-Insight
 4. Environment must be using the Distributed Virtual Switch
 5. vCenter Server credentials with privileges:
 - Distributed Switch: Modify
 - dvPort group: Modify
 
 More details on permissions here:  
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/5.2/com.vmware.vrni.using.doc/GUID-B9F6B6B4-5426-4752-B852-B307E49E86D1.html
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.install.doc/GUID-F4F34425-C40D-457A-BA65-BDA12B3ABE45.html
 
 6. Once installed - the vRNI Platform will modify and enable IPFIX flows on the VDS
 - This will be a change (although non-impacting) - please ensure any change control items are covered  
@@ -116,7 +120,9 @@ If you have already copied the VMs to vCenter this can be < 1 hour.
 vRealize Network Insight Install Documentation:  
 https://www.vmware.com/support/pubs/vrealize-network-insight-pubs.html
 
-This covers the install process - fairly straight forward.  
+This covers the install process - fairly straight forward. 
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.install.doc/GUID-EA58F67F-B794-403E-BE54-16A4C2CA309C.html
+
 High-level steps:
 1. Import Platform VM OVA and power up
 2. Connect HTTPS to Platform VM and run through wizard
