@@ -65,11 +65,13 @@ Please take a look at the pre-requisites below.
 To set up these VMs - you will require:
 1. 2x static IP addresses to be allocated from a MGMT environment (1 IP per VM)
 2. VMs to be imported into a MGMT environment (OVAs to be copied over to vCenter datastore first, but not yet deployed)
-3. These IP addresses require connectivity/access (L2 or L3) to the MGMT network of vCenter and ESX host mgmt VMK ports
-	ESXi Hosts -> Collector VM (UDP 2055)
-	Collector VM  -> vCentre (TCP 443)
-	Collector VM -> Platform VM (TCP 443)
+3. These IP addresses require connectivity/access (L2 or L3) to the MGMT network of vCenter and ESX host mgmt VMK ports.
+	
+	ESXi Hosts -> Collector VM (UDP 2055).
+	Collector VM  -> vCentre (TCP 443).
+	Collector VM -> Platform VM (TCP 443).
 	https://ports.vmware.com/home/vRealize-Network-Insight
+	
 4. Environment must be using the Distributed Virtual Switch
 5. vCenter Server credentials with privileges:
 - Distributed Switch: Modify
