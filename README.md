@@ -368,6 +368,7 @@ show vm where Rx Packet Drops > 0
 show vm where Memory Usage Rate and Memory Balloon != 0
 show vm where Memory Usage Rate > 80 order by memory usage rate
 show vm where CPU Usage Rate > 80 order by CPU Usage Rate 
+show vm where Total Packet Drops > 0 and Datastore like 'sc2c01vsan01' 
 show flows where Lost Packet Ratio > 0
 ```
 
