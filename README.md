@@ -109,7 +109,7 @@ VMware ESXi:
 - 6.0 Update 1b (Build 3380124) and above
 
 Full list of supported data sources:  
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/5.2/com.vmware.vrni.using.doc/GUID-4BA21C7A-18FD-4411-BFAC-CADEF0050D76.html
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.using.doc/GUID-4BA21C7A-18FD-4411-BFAC-CADEF0050D76.html#GUID-4BA21C7A-18FD-4411-BFAC-CADEF0050D76
 
 VMware Tools ideally installed on all the virtual machines in the data center.  
 This helps in identifying the VM to VM traffic.  
@@ -123,9 +123,10 @@ vRealize Network Insight Install Documentation:
 https://www.vmware.com/support/pubs/vrealize-network-insight-pubs.html
 
 This covers the install process - fairly straight forward. 
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.install.doc/GUID-EA58F67F-B794-403E-BE54-16A4C2CA309C.html
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.install.doc/GUID-F4F34425-C40D-457A-BA65-BDA12B3ABE45.html
 
 High-level steps:
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.install.doc/GUID-EA58F67F-B794-403E-BE54-16A4C2CA309C.html
 1. Import Platform VM OVA and power up
 2. Connect HTTPS to Platform VM and run through wizard
 3. Enter License Key - this is for the 60-day trial
@@ -146,7 +147,7 @@ Here is a useful list
 #### Search Posters and Demos <a name="search"></a>
 
 https://vrealize.vmware.com/t/vrealize-network-insight/
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/5.3/com.vmware.vrni.using.doc/GUID-176F5A09-2325-41EA-A315-58738CB4F117.html
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.using.doc/GUID-176F5A09-2325-41EA-A315-58738CB4F117.html
 
 #### Top List of Entities  <a name="topn"></a>
 ```
