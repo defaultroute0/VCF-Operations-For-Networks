@@ -101,6 +101,10 @@ vRealize Network Insight Proxy OVA:
 - 10 GB RAM - Reservation - 5GB
 - 150 GB - HDD, Thin provisioned
 
+For 'Network Intents and Assurance' in v6.0, pls go for the XL brick size. 
+Basically if you are evaluationg this, its a must to check this out.
+https://youtu.be/bqZSBwv55vk
+
 VMware vCenter Server (version 5.5+ and 6.0+):
 - To configure and use IPFIX
 
