@@ -354,13 +354,21 @@ vm where SDDC Type = 'VMC'     //// pick one, >> METRICS >> ALL METRICS
 vm where name like 'NSX-Edge' and sddc type = 'VMC'  //NSX Edge VM in VMC provides the network metrics (Rx Packets, Tx Packets etc)  in the facets and view the metrics graph    // >> METRICS >> ALL METRICS
 ```
 
-- Troubleshooting - Hosts
+- Troubleshooting - Hosts and VM's
 ```
 show hosts where SDDC Type = 'VMC' 
 show hosts where Total Packet Drop Ratio = 0 and SDDC Type = 'VMC' 
 show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and SDDC Type = 'VMC' 
 show hosts where Max Network Rate  and Rx Packet Drops and Tx Packet Drops  and Max Latency and Active Memory > 20 gb and Total Network Traffic and Bus Resets and SDDC Type = 'VMC' 
 vnic count, cpu count of vms where SDDC Type = 'VMC'  order by CPU Usage Rate 
+vmknic where Total Packet Drops > 0
+Vnic where Total Packet Drops != 0
+hosts where Total Packet Drops != 0
+show vm where Rx Packet Drops > 0
+show vm where Memory Usage Rate and Memory Balloon != 0
+show vm where Memory Usage Rate > 80 order by memory usage rate
+show vm where CPU Usage Rate > 80 order by CPU Usage Rate 
+show flows where Lost Packet Ratio > 0
 ```
 
 - Troubleshooting - Performance
