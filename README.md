@@ -132,12 +132,12 @@ https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.i
 High-level steps:
 https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.install.doc/GUID-EA58F67F-B794-403E-BE54-16A4C2CA309C.html
 1. Import Platform VM OVA and power up
-2. Connect HTTPS to Platform VM and run through wizard
+2. Connect HTTPS to Platform VM and run through wizard using admin@local as login and your password you set
 3. Enter License Key - this is for the 60-day trial
 4. Generate shared key from Platform VM
 5. Import Proxy VM and enter shared key
 6. Finalise Proxy install via setup CLI
-7. Login to Platform VM UI (HTTPS) and configure vCenter / VDS datasources (IPFIX)
+7. Login to Platform VM UI (HTTPS) admin@local and configure vCenter / VDS datasources (IPFIX)
 
 
 
