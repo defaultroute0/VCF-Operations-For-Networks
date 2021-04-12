@@ -7,19 +7,20 @@
 	1. [Searches/Demos](#search)
 	2. [TopN](#topn)
 	3. [Workloads VMs](#query-vm2)
-	4. [Applications](#apps)
-	5. [Network Stuff](#network)
-	6. [Path Tracing](#tracing)
-	7. [Flows](#flows)
-	8. [Dubious Flows](#badflows)
-	9. [Physical Flows](#phyflows)
-	10. [Security Stuff](#security)
-	11. [Compliance and Auditing](#auditing)
-	12. [Managing NSX Domain](#nsxday2)
-	13. [VMC](#vmc)
-	14. [Public Cloud](#publiccloud)
-	15. [VeloCloud](#velocloud)
-	16. [Kubernetes](#k8s)
+	5. [Applications](#apps)
+	6. [Network Stuff](#network)
+	7. [Path Tracing](#tracing)
+	8. [Flows](#flows)
+	9. [Dubious Flows](#badflows)
+	10. [Physical Flows](#phyflows)
+	11. [Security Stuff](#security)
+	12. [Lateral Threat, Internal Traffic](#vna)
+	13. [Compliance and Auditing](#auditing)
+	14. [Managing NSX Domain](#nsxday2)
+	15. [VMC](#vmc)
+	16. [Public Cloud](#publiccloud)
+	17. [VeloCloud](#velocloud)
+	18. [Kubernetes](#k8s)
 3. [Traffic Analysis Queries](#queries)
 	1. [Security](#query-security)
 	2. [VM by Application](#query-vm-application)
@@ -298,6 +299,19 @@ firewall rules from VM 'App01-ACI' to VM 'DB02-ACI'
 show flow where firewall action = 'DENY' 
 NSX-V Security Group 'Prod-Web'
 NSX-T Security Group 'NSX-INTELLIGENCE-GROUP'
+```
+#### Lateral Threat, Internal Traffic <a name="vna"></a>
+```
+plan security
+plan security of application 'SAP'
+show Flow where Flow Type = East-West group by  Subnet Network
+show Flow where Flow Type = Switched group by  Subnet Network
+show flows where  Flow Type =  'Same Host' group by  Subnet Network   
+show flows where  Flow Type =  'Same Host' group by vm       
+top 10 flows where  Source Country =  'Australia’ and  Destination Country !=  'Australia’ group by  Destination Country,  Source Country order by sum(bytes)
+sum(Bytes), sum(Bytes Rate) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host')
+flows where flow type = 'Source is internet' and port in (22,23,3389) group by Source Country
+vm where Incoming Port = 445 group by Operating System
 ```
 
 #### Compliance and Auditing <a name="audit"></a>
