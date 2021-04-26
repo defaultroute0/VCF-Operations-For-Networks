@@ -92,19 +92,19 @@ From here we can:
 
 Here are the vRNI VM requirements (refer to Install documentation below):
 
-vRealize Network Insight Platform OVA:  
+vRealize Network Insight Platform OVA**:  
 - 8 cores - Reservation 4096 Mhz
 - 32 GB RAM - Reservation - 16GB
 - 750 GB - HDD, Thin provisioned
+
+** N.B: To use 'Flow based Application Discovery' OR  'Network Intents and Assurance'- use XL Brick size for the platform (16 core / 64GB RAM / 2TB disk)
+Basically if you are evaluationg this, its a must to check this out.
+https://youtu.be/bqZSBwv55vk
 
 vRealize Network Insight Proxy OVA:  
 - 4 cores - Reservation 2048 Mhz
 - 10 GB RAM - Reservation - 5GB
 - 150 GB - HDD, Thin provisioned
-
-For 'Network Intents and Assurance' in v6.0, pls go for the XL brick size. 
-Basically if you are evaluationg this, its a must to check this out.
-https://youtu.be/bqZSBwv55vk
 
 VMware vCenter Server (version 5.5+ and 6.0+):
 - To configure and use IPFIX
