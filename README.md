@@ -174,6 +174,7 @@ vm where cpu usage rate > 80%
 vm where CPU Wait Rate order by Max Network Rate 
 vm by Read Latency where RW IOPS 
 vm by RW IOPS where Max Network Rate and CPU Ready Rate and CPU Wait Rate and Read Latency and RW Throughput and Read IOPS and Read Throughput and Write IOPS and Write Latency and Write Throughput 
+vm where Operating System like 'Microsoft Windows Server 2003' or Operating System like 'Microsoft Windows Server 2008' or Operating System like 'Red Hat Enterprise Linux 6' or Operating System like 'Red Hat Enterprise Linux 5' or Operating System like 'SUSE Linux Enterprise 10' group by vlan, Operating System
 ```
 
 #### Applications you define or learn via ML <a name="apps"></a>
@@ -187,6 +188,8 @@ sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RT
 ```
 l2 network order by VM Count 
 L2 Network where VM Count > 0 group by Network Address, VM Count
+sum(VM Count) of l2 network order by VM Count
+top 10 vlan group by Vlan id, vm count order by sum(Total Network Traffic) in last 7 days
 show vlan by Host Count 
 10.100.23.43
 Vlan 'vlan-10'
@@ -311,7 +314,9 @@ show flows where  Flow Type =  'Same Host' group by vm
 top 10 flows where  Source Country =  'Australia’ and  Destination Country !=  'Australia’ group by  Destination Country,  Source Country order by sum(bytes)
 sum(Bytes), sum(Bytes Rate) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host')
 flows where flow type = 'Source is internet' and port in (22,23,3389) group by Source Country
+flow where Destination Port == 3389 group by Destination VM, Source IP Address
 vm where Incoming Port = 445 group by Operating System
+flow where destination port name = 'dns' group by Destination VM
 ```
 
 #### Compliance and Auditing <a name="audit"></a>
