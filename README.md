@@ -314,6 +314,7 @@ show flows where  Flow Type =  'Same Host' group by vm
 top 10 flows where  Source Country =  'Australia’ and  Destination Country !=  'Australia’ group by  Destination Country,  Source Country order by sum(bytes)
 sum(Bytes), sum(Bytes Rate) of flows where (Flow Type = 'Routed' and Flow Type = 'Same Host')
 flows where flow type = 'Source is internet' and port in (22,23,3389) group by Source Country
+flows where flow type = 'Source is internet' and port in (22,23,3389) group by Source Country, Destination VM
 flow where Destination Port == 3389 group by Destination VM, Source IP Address
 vm where Incoming Port = 445 group by Operating System
 flow where destination port name = 'dns' group by Destination VM
