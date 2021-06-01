@@ -57,9 +57,6 @@ You will then get access to download the latest vRNI OVAs:
 Main documentation page:  
 https://docs.vmware.com/en/VMware-vRealize-Network-Insight/index.html
 
-and learning page:
-https://vrealize.vmware.com/t/vrealize-network-insight/
-
 ### vRNI Prerequisites <a name="prerequisites"></a>
 For the vRNI trial, there are 2x OVA images (mentioned above) to be imported into a vSphere environment.  
 These will be configured to begin collecting vCenter inventory and VDS flow information from the virtual environment.  
@@ -144,7 +141,6 @@ https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.i
 7. Login to Platform VM UI (HTTPS) admin@local and configure vCenter / VDS datasources (IPFIX)
 
 Awesome repository of Searches here:
-https://vrealize.vmware.com/sample-exchange/vrealize-network-insight-search-exchange/categories
 
 
 ## General Queries <a name="general"></a>
@@ -158,6 +154,10 @@ Here is a useful list
 
 https://vrealize.vmware.com/t/vrealize-network-insight/
 https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.using.doc/GUID-176F5A09-2325-41EA-A315-58738CB4F117.html
+
+Really nice search database:
+https://vrealize.vmware.com/sample-exchange/vrealize-network-insight-search-exchange/categories
+
 
 #### Top List of Entities  <a name="topn"></a>
 ```
