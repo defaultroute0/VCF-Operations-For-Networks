@@ -3,6 +3,8 @@
 1. [Trial Process](#overview)
 	1. [Prerequisites](#prerequisites)
 	2. [Installation](#installation)
+	3. [Archiving flows to vRLI](#vRLI)
+	4. [Import recommended fw rules to NSX-T/VMC on AWS](#ImportFW)
 2. [General Queries](#general)
 	1. [Searches/Demos](#search)
 	2. [TopN](#topn)
@@ -140,7 +142,13 @@ https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.i
 6. Finalise Proxy install via setup CLI
 7. Login to Platform VM UI (HTTPS) admin@local and configure vCenter / VDS datasources (IPFIX)
 
-Awesome repository of Searches here:
+## Archiving flows to vRLI <a name="vRLI"></a>
+Archiving flows to vRLI
+https://github.com/PowervRNI/powervrni/tree/master/examples/archive-flows-to-vrli
+
+## Import recommended fw rules to NSX-T/VMC on AWS <a name="ImportFW"></a>
+Import recommended fw rules to NSX-T/VMC on AWS
+https://github.com/vrealize-network-insight/vrni-rule-import-vmc-nsxt
 
 
 ## General Queries <a name="general"></a>
@@ -151,7 +159,6 @@ The usefulness of these outputs is only as good as the questions asked of the sy
 Here is a useful list
 
 #### Search Posters and Demos <a name="search"></a>
-
 https://vrealize.vmware.com/t/vrealize-network-insight/
 https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.using.doc/GUID-176F5A09-2325-41EA-A315-58738CB4F117.html
 
