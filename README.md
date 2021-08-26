@@ -17,7 +17,7 @@
 	10. [Physical Flows](#phyflows)
 	11. [Security Stuff](#security)
 	12. [Lateral Threat, Internal Traffic](#vna)
-	13. [Compliance and Auditing](#auditing)
+	13. [Change and Auditing](#audit)
 	14. [Managing NSX Domain](#nsxday2)
 	15. [VMC](#vmc)
 	16. [Public Cloud](#publiccloud)
@@ -332,7 +332,7 @@ vm where Incoming Port = 445 group by Operating System
 flow where destination port name = 'dns' group by Destination VM
 ```
 
-#### Compliance and Auditing <a name="audit"></a>
+#### Change and Auditing <a name="audit"></a>
 ```
 changes
 problems
