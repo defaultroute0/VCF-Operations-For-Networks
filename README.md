@@ -96,7 +96,7 @@ From here we can:
 
 Here are the vRNI VM requirements (refer to Install documentation below):
 
-vRealize Network Insight Platform OVA (XL):  
+vRealize Network Insight **Platform** OVA (XL):  
 - 18 cores - Reservation 100%
 - 64 GB RAM - Reservation - 100%
 - 2 TB - HDD, Thin provisioned
@@ -105,11 +105,11 @@ vRealize Network Insight Platform OVA (XL):
 Basically if you are evaluating how machine learning can disovery applications, its a must to check this out.
 https://youtu.be/bqZSBwv55vk
 
-vRealize Network Insight Collector OVA (XL):  
+vRealize Network Insight **Collector** OVA (XL):  
 - 9 cores - Reservation 100%
 - 24 GB RAM - Reservation - 100%
 - 200 GB - HDD, Thin provisioned
-- 
+
 VMware vCenter Server (version 5.5+ and 6.0+):
 - To configure and use IPFIX
 
