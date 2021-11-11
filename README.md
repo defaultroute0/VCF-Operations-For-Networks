@@ -70,10 +70,12 @@ To set up these VMs - you will require:
 2. VMs to be imported into a MGMT environment (OVAs to be copied over to vCenter datastore first, but not yet deployed)
 3. These IP addresses require connectivity/access (L2 or L3) to the MGMT network of vCenter and ESX host mgmt VMK ports.
 	
+	```
 	ESXi Hosts -> Collector VM (UDP 2055).
 	Collector VM  -> vCentre (TCP 443).
 	Collector VM -> Platform VM (TCP 443).
 	https://ports.vmware.com/home/vRealize-Network-Insight
+	```
 	
 4. Environment must be using the Distributed Virtual Switch
 5. vCenter Server credentials with privileges:
@@ -81,7 +83,7 @@ To set up these VMs - you will require:
 - dvPort group: Modify
 
 More details on permissions here:  
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.install.doc/GUID-F4F34425-C40D-457A-BA65-BDA12B3ABE45.html
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.4/com.vmware.vrni.install.doc/GUID-F4F34425-C40D-457A-BA65-BDA12B3ABE45.html
 
 6. Once installed - the vRNI Platform will modify and enable IPFIX flows on the VDS
 - This will be a change (although non-impacting) - please ensure any change control items are covered  
@@ -94,20 +96,20 @@ From here we can:
 
 Here are the vRNI VM requirements (refer to Install documentation below):
 
-vRealize Network Insight Platform OVA**:  
-- 8 cores - Reservation 4096 Mhz
-- 32 GB RAM - Reservation - 16GB
-- 750 GB - HDD, Thin provisioned
+vRealize Network Insight Platform OVA (XL):  
+- 18 cores - Reservation 100%
+- 64 GB RAM - Reservation - 100%
+- 2 TB - HDD, Thin provisioned
 
-** N.B: To use 'Flow based Application Discovery' OR  'Network Intents and Assurance'- use XL Brick size for the platform (16 core / 64GB RAM / 2TB disk)
-Basically if you are evaluationg this, its a must to check this out.
+** N.B: To use 'Flow based Application Discovery' OR  'Network Intents and Assurance'- use XL Brick size for the platform (18 core / 64GB RAM / 2TB disk)
+Basically if you are evaluating how machine learning can disovery applications, its a must to check this out.
 https://youtu.be/bqZSBwv55vk
 
-vRealize Network Insight Proxy OVA:  
-- 4 cores - Reservation 2048 Mhz
-- 10 GB RAM - Reservation - 5GB
-- 150 GB - HDD, Thin provisioned
-
+vRealize Network Insight Collector OVA (XL):  
+- 9 cores - Reservation 100%
+- 24 GB RAM - Reservation - 100%
+- 200 GB - HDD, Thin provisioned
+- 
 VMware vCenter Server (version 5.5+ and 6.0+):
 - To configure and use IPFIX
 
@@ -116,7 +118,7 @@ VMware ESXi:
 - 6.0 Update 1b (Build 3380124) and above
 
 Full list of supported data sources:  
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.using.doc/GUID-4BA21C7A-18FD-4411-BFAC-CADEF0050D76.html#GUID-4BA21C7A-18FD-4411-BFAC-CADEF0050D76
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.4/com.vmware.vrni.using.doc/GUID-4BA21C7A-18FD-4411-BFAC-CADEF0050D76.html#GUID-4BA21C7A-18FD-4411-BFAC-CADEF0050D76
 
 VMware Tools ideally installed on all the virtual machines in the data center.  
 This helps in identifying the VM to VM traffic.  
@@ -130,10 +132,10 @@ vRealize Network Insight Install Documentation:
 https://www.vmware.com/support/pubs/vrealize-network-insight-pubs.html
 
 This covers the install process - fairly straight forward. 
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.install.doc/GUID-F4F34425-C40D-457A-BA65-BDA12B3ABE45.html
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.4/com.vmware.vrni.install.doc/GUID-F4F34425-C40D-457A-BA65-BDA12B3ABE45.html
 
 High-level steps:
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.install.doc/GUID-EA58F67F-B794-403E-BE54-16A4C2CA309C.html
+https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.4/com.vmware.vrni.install.doc/GUID-EA58F67F-B794-403E-BE54-16A4C2CA309C.html
 1. Import Platform VM OVA and power up
 2. Connect HTTPS to Platform VM and run through wizard using admin@local as login and your password you set
 3. Enter License Key - this is for the 60-day trial
