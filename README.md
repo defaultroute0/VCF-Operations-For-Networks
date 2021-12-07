@@ -386,6 +386,14 @@ vm where SDDC Type = 'VMC'     //// pick one, >> METRICS >> ALL METRICS
 - Troubleshooting - Edges
 ```
 vm where name like 'NSX-Edge' and sddc type = 'VMC'  //NSX Edge VM in VMC provides the network metrics (Rx Packets, Tx Packets etc)  in the facets and view the metrics graph    // >> METRICS >> ALL METRICS
+Rx packets of router interface where vrf = 'vmc'
+Tx packets of router interface where vrf = 'vmc'
+Total rx bytes of router interface
+Total tx bytes of router interface
+Rx Dropped Packets of router interface where vrf = 'vmc'
+Tx Dropped Packets of router interface where vrf = 'vmc’
+router interface where Rx Packet Drop Ratio > 10% and manager = '10.73.185.131’
+
 ```
 
 - Troubleshooting - Hosts and VM's
