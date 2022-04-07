@@ -759,6 +759,35 @@ sum(Bytes), sum(Bytes Rate), sum(Retransmitted Packet Ratio), max(Average Tcp RT
 #### Moving, Migrating Applications <a name="migration"></a>
 When doing multiple applications and forming Move Groups, create a parent container application called ‘Move_Group_1’ and make the specific applications a part of it. Then use the group name in the below searches. Ref: https://cloud.vmware.com/community/2019/12/10/planning-application-migration-vmware-cloud-aws-vrealize-network-insight-cloud/
 
+- Show application bandwidth
+https://blogs.vmware.com/cloud/2019/12/10/planning-application-migration-vmware-cloud-aws-vrealize-network-insight-cloud/
+
+```
+Application 'HIVE Training'
+vm where name like web
+series(sum(bytes rate)) of Flows where Application = '3TierApp02'
+(can change to last 3 days, or last 30 days for instance, and click search again)
+series(sum(network usage)) of  VMware VM where  Name like web
+sum(Total Traffic) of Flows where Application =  'HIVE Training' in last 7 days
+sum(Total Traffic) of Flows where Application =  'HIVE Training' in last 24 hours
+sum(Total Traffic) of Flows where source Application =  'HIVE Training' and  Destination Application = ‘mybackup-app’ in last 30 days
+sum(Total Traffic) of Flows where  Destination VM = 'mybackup-vm' in last 7 days
+sum(Total Traffic) of Flows where source Application =  'HIVE Training' and   Destination VM = 'mybackup-vm' in last 30 days
+```
+
+- Show application which contain a particular VM
+```
+Applications which contain a particular VM
+Applications where Virtual Member = "shopping-db"
+Applications where Virtual Member like DB
+```
+
+
+- Show application maximum flow rate
+```
+max(series(sum(flow.totalPackets.delta.summation.number))) of flow where source application =  'HIVE Training'
+```
+
 - Show incoming application traffic
 ```
 series(sum(byte rate),300) of flow where destination application = ‘‘Move_Group_1'
@@ -771,7 +800,7 @@ Get outgoing traffic by substituting destination with source.
 application where ip endpoint.network interface.L2 Network = 'vlan-10' 
 ```
 
-- Inventory and Xax use
+- How much resource does the app take?
 ```
 sum(CPU Cores), sum(Memory Consumed) of VMs where application = 'Migration Wave 1'
 ```
@@ -793,6 +822,13 @@ Get outgoing traffic also by substituting destination with source.
 - Show traffic to remaining on-prem apps
 ```
 series(sum(byte rate),300) of flow where application = 'Move_Group_1' and Flow Type = 'East-West' 
+```
+
+- Which Operating Systems are out there
+```
+vm group by  Operating System
+vm where Incoming Port = 445 and Operating System like 'Microsoft Windows 10 (64-bit)' 
+vm where Incoming Port = 445 group by Operating System
 ```
 
 ## Import/Export Applications <a name="applications"></a>
