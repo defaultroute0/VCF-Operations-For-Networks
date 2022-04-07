@@ -767,7 +767,7 @@ https://blogs.vmware.com/cloud/2019/12/10/planning-application-migration-vmware-
 Application 'HIVE Training'
 vm where name like web
 series(sum(bytes rate)) of Flows where Application = '3TierApp02'
-(can change to last 3 days, or last 30 days for instance, and click search again)
+ #(can change to last 3 days, or last 30 days for instance, and click search again)
 series(sum(network usage)) of  VMware VM where  Name like web
 sum(Total Traffic) of Flows where Application =  'HIVE Training' in last 7 days
 sum(Total Traffic) of Flows where Application =  'HIVE Training' in last 24 hours
