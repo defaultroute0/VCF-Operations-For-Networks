@@ -805,6 +805,7 @@ application where ip endpoint.network interface.L2 Network = 'vlan-10'
 ```
 sum(CPU Cores), sum(Memory Consumed) of VMs where application = 'Migration Wave 1'
 vm where L2 Network = '10.72.82.0/24' group by Virtual Disk Capacity
+vm where  Application = 'MigrationWave01' group by  Virtual Disk Capacity 
 Virtual Disk of VMware VM where Application =  'HIVE Training'
 sum(Used Space) of datastore where  VM like '3TierApp01-DB-VM01' 
 vm where  L2 Network = 'APP-LS'
