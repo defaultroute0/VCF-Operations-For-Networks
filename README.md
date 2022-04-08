@@ -804,6 +804,13 @@ application where ip endpoint.network interface.L2 Network = 'vlan-10'
 - How much resource does the app take?
 ```
 sum(CPU Cores), sum(Memory Consumed) of VMs where application = 'Migration Wave 1'
+vm where L2 Network = '10.72.82.0/24' group by Virtual Disk Capacity
+Virtual Disk of VMware VM where Application =  'HIVE Training'
+sum(Used Space) of datastore where  VM like '3TierApp01-DB-VM01' 
+vm where  L2 Network = 'APP-LS'
+ #into these commands
+sum(Used Space) of datastore where  VM in ( '3TierApp02-App-VM01' , '3TierApp02-App-VM02' )
+sum(Free Space) of datastore where  VM in ( '3TierApp02-App-VM01' , '3TierApp02-App-VM02' )
 ```
 
 - Show internet traffic
