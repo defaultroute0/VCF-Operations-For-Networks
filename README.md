@@ -857,7 +857,7 @@ flows where flow type = 'source is internet' and port in (22,23,3389) group by s
 flows where flow type = 'destination is internet' in last 30 days group by application
 flows where flow type = 'source is internet' in last 30 days group by application
 flows where source application = 'DEV - ALL' and destination application != 'DEV - ALL' in last 30 days
-pan application 'MyProdApp'
+plan application 'CrownJewelDB'
 flows where port = 3389 group by application
 flows where port = 3389 and destination application = 'CrownJewelDB' in last 30 days
 flows where destination port = 3389 and destination application = 'CrownJewelDB' in last 30 days
