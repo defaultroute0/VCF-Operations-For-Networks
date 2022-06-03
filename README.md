@@ -37,6 +37,7 @@
 	11. [Flows, VM-VM, Routed, via any L3 Router](#query-flows-routed-any)
 	12. [Flows, VM-VM, Routed, via specific L3 Router](#query-flows-routed-specific)
 	13. [Moving, Migrating Applications](#migration)
+	14. [Virtual Network Assessment](#vna)
 3. [Import/Export Applications](#applications)
 
 ## vRNI Trial Process <a name="overview"></a>
@@ -839,6 +840,28 @@ vm group by  Operating System
 vm where Incoming Port = 445 and Operating System like 'Microsoft Windows 10 (64-bit)' 
 vm where Incoming Port = 445 group by Operating System
 ```
+#### Virtual Network Assessment <a name="vna"></a>
+Analyses Traffic Patterns to ascertain E/W flows and flows which may happen solely with a security zone, which often has has no security visiblity and / or enforcement., thus presenting, a pivot point or later move for an attacker.
+
+[[https://blogs.vmware.com/cloud/2019/12/10/planning-application-migration-vmware-cloud-aws-vrealize-network-insight-cloud]
+
+```
+Identify is customer using a fwd proxy as N/S % flows will be distorted, if so, enter it as N/S destination in settings
+Use application definition to identify PROD and DEV apps
+Use application definition to identify critical crown jewel DB apps, so we can see incoming flows
+vm where name like DEV
+top50 flows where destination country != 'Australia' group by source vm, destination country order by sum(Bytes) in last 30 days
+flows where source application = 'PROD' and destination application = 'DEV' or source application = 'DEV' and destination application = 'PROD'
+flows where flow type = 'source is internet' and port in (22,23,3389) group by source country, destnation vm
+flows where flow type = 'destination is internet' in last 30 days group by application
+flows where flow type = 'source is internet' in last 30 days group by application
+flows where source application = 'DEV - ALL' and destination application != 'DEV - ALL' in last 30 days
+pan application 'MyProdApp'
+flows where port = 3389 group by application
+flows where port = 3389 and destination application = 'CrownJewelDB' in last 30 days
+flows where destination port = 3389 and destination application = 'CrownJewelDB' in last 30 days
+```
+
 
 ## Import/Export Applications <a name="applications"></a>
 Step by step instructions for setting up and exporting vRNI Application definitions as per:  
