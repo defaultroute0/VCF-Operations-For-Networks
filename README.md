@@ -16,7 +16,7 @@
 	9. [Dubious Flows](#badflows)
 	10. [Physical Flows](#phyflows)
 	11. [Security Stuff](#security)
-	12. [Lateral Threat, Internal Traffic](#vna)
+	12. [Lateral Threat, Internal Traffic](#lateral)
 	13. [Change and Auditing](#audit)
 	14. [Managing NSX Domain](#nsxday2)
 	15. [VMC](#vmc)
@@ -318,7 +318,7 @@ show flow where firewall action = 'DENY'
 NSX-V Security Group 'Prod-Web'
 NSX-T Security Group 'NSX-INTELLIGENCE-GROUP'
 ```
-#### Lateral Threat, Internal Traffic <a name="vna"></a>
+#### Lateral Threat, Internal Traffic <a name="lateral"></a>
 ```
 plan security
 plan security of application 'SAP'
