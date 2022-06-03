@@ -852,6 +852,7 @@ Use application definition to identify critical crown jewel DB apps, so we can s
 vm where name like DEV
 top50 flows where destination country != 'Australia' group by source vm, destination country order by sum(Bytes) in last 30 days
 flows where source application = 'PROD' and destination application = 'DEV' or source application = 'DEV' and destination application = 'PROD'
+flows where source application = 'DEV' and destination application != 'DEV'
 flows where flow type = 'source is internet' and port in (22,23,3389) group by source country, destnation vm
 flows where flow type = 'destination is internet' in last 30 days group by application
 flows where flow type = 'source is internet' in last 30 days group by application
