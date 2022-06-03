@@ -847,9 +847,10 @@ Analyses Traffic Patterns to ascertain E/W flows and flows which may happen sole
 
 ```
 Identify is customer using a fwd proxy as N/S % flows will be distorted, if so, enter it as N/S destination in settings
-Use application definition to identify PROD and DEV apps
-Use application definition to identify critical crown jewel DB apps, so we can see incoming flows
+Use application definition to identify DEV, or even better additionally PROD and Crown Jewel DB groupings so we can see incoming flows
+or just manually create an app group 'custom vm search' name like dev
 vm where name like DEV
+vm where name like SQL
 top50 flows where destination country != 'Australia' group by source vm, destination country order by sum(Bytes) in last 30 days
 flows where source application = 'PROD' and destination application = 'DEV' or source application = 'DEV' and destination application = 'PROD'
 flows where source application = 'DEV' and destination application != 'DEV'
