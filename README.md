@@ -394,6 +394,7 @@ Total tx bytes of router interface
 Rx Dropped Packets of router interface where vrf = 'vmc'
 Tx Dropped Packets of router interface where vrf = 'vmc’
 router interface where Rx Packet Drop Ratio > 10% and manager = '10.73.185.131’
+edge Dataplane CPU Core Usage Rate of  NSX-T Edge Node CPU Core where  Edge Dataplane CPU Core Usage Rate > 0.1 %
 
 ```
 
