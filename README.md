@@ -870,6 +870,8 @@ flows where destination port = 3389 and destination application = 'CrownJewelDB'
 Step by step instructions for setting up postman and interacting with vRNI's OpenAPI spec
 More to come...
 
+![alt text](https://github.com/defaultroute0/vrni/blob/master/image.jpg?raw=true)
+
 ## Import/Export Applications <a name="applications"></a>
 Step by step instructions for setting up and exporting vRNI Application definitions as per:  
 https://code.vmware.com/samples/7128/backup-and-restore-applications---vrealize-network-insight
