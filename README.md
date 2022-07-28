@@ -38,7 +38,8 @@
 	12. [Flows, VM-VM, Routed, via specific L3 Router](#query-flows-routed-specific)
 	13. [Moving, Migrating Applications](#migration)
 	14. [Virtual Network Assessment](#vna)
-3. [Import/Export Applications](#applications)
+3. [Using vRNI via API](#api)
+4. [Import/Export Applications](#applications)
 
 ## vRNI Trial Process <a name="overview"></a>
 
@@ -865,6 +866,9 @@ flows where port = 3389 and destination application = 'CrownJewelDB' in last 30 
 flows where destination port = 3389 and destination application = 'CrownJewelDB' in last 30 days
 ```
 
+## Using vRNI via its API <a name="api"></a>
+Step by step instructions for setting up postman and interacting with vRNI's OpenAPI spec
+More to come...
 
 ## Import/Export Applications <a name="applications"></a>
 Step by step instructions for setting up and exporting vRNI Application definitions as per:  
