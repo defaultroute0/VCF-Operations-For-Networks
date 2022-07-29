@@ -869,7 +869,7 @@ flows where destination port = 3389 and destination application = 'CrownJewelDB'
 ## Using vRNI via its API <a name="api"></a>
 Step by step instructions for setting up postman and interacting with vRNI's OpenAPI spec
 
-![API method coming soon](https://github.com/defaultroute0/vrni/blob/master/images/image.png?raw=true)
+![API method](https://github.com/defaultroute0/vrni/blob/master/images/image.png?raw=true)
 
 https://github.com/vrealize-network-insight/vrni-api-postman-collection
 
