@@ -874,8 +874,10 @@ Step by step instructions for setting up postman and interacting with vRNI's Ope
 https://github.com/vrealize-network-insight/vrni-api-postman-collection
 
 Import these two files as raw github links / URLs into postman
+```
 https://raw.githubusercontent.com/vrealize-network-insight/vrni-api-postman-collection/master/vrni-6.5.0-api-postman-collection.json
 https://raw.githubusercontent.com/vrealize-network-insight/vrni-api-postman-collection/master/vrni-6.5.0-api-postman-environment.json
+```
 ![API method coming soon](https://github.com/defaultroute0/vrni/blob/master/images/postmancollection.png?raw=true)
 
 Set the “host” parameter in environment as your vRNI setup IP.
@@ -886,11 +888,13 @@ This collection has an auth folder. In the “Create an auth token” call, chan
 
 Either use my LDAP one pictured below, or just use LOCAL example
 
+```
                       "username": "admin@local",
                       "password": "testpassword",
                       "domain": {
                        "domain_type": "LOCAL"
-		     
+```
+
 Create an auth token
 ![API method coming soon](https://github.com/defaultroute0/vrni/blob/master/images/createauthtoken.png?raw=true)	      
 		      
