@@ -303,7 +303,9 @@ show flows from Cluster 'Management' to 'Internet-Gateway'
 #### Physical Flows <a name="phyflows"></a>
 ```
 show flow where flow type = 'Source is Physical' group by port.ianaPortDisplay
-flow where Flow Type = 'Source is Physical' and Flow Type = 'Destination is Physical' order by port.ianaPortDisplay
+flow where Flow Type = 'Source is Physical' or Flow Type = 'Destination is Physical' group by  VM 
+flow where Flow Type = 'Source is Physical' or Flow Type = 'Destination is Physical' group by  L2 Network
+flow where Flow Type = 'Source is Physical' or Flow Type = 'Destination is Physical' group by  Application
 ```
 
 
@@ -361,16 +363,17 @@ events
 NSX-V Manager 'wdcnsx-master.cmbu.local'
 NSX-T Manager 'sc2vc05-vip-nsx-mgmt.cmbu.local'
 NSX-T Security Group '
+Edges: NSX-T Transport Node 'sc2nsxt-edge-01' 
+edge Dataplane CPU Core Usage Rate of  NSX-T Edge Node CPU Core where  Edge Dataplane CPU Core Usage Rate > 0.1 %
 show flows order by Average TCP RTT 
 Average Physical Network Flow Latency 
 show flows where Maximum TCP RTT > 150
 flows in last 7 days   >> FLOW INSIGHTS >> NETWORK PERFORMANCE
 show 'Unused DFW Rules' 
 show 'Unused NSX Firewall Rules' 
-show 'Masked DFW Rules' show nsx ru
+show  Firewall Rule Masked Alert 
 router interface where Rx packet drops > 0    //troubleshoot uplink ports
 NSX-T Logical Switch where Rx Packet Drops > 0       //troubleshoot segments
-edge Dataplane CPU Core Usage Rate of  NSX-T Edge Node CPU Core where  Edge Dataplane CPU Core Usage Rate > 0.1 %
 ```
 #### VMC  <a name="vmc"></a>
 
