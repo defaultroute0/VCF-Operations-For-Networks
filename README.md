@@ -310,15 +310,25 @@ flow where Flow Type = 'Source is Physical' and Flow Type = 'Destination is Phys
 #### Security Rules <a name="security"></a>
 ```
 plan security
+NSX-T Manager 'SC2nsxt-01.cmbu.local' 
 pci dashboard
 pci compliance of Cluster 'Cluster-1'
 Firewall Rules
+Security Tag 'ST-Tito-Web' 
+show  'Unused NSX Firewall Rules' 
+show  Firewall Rule Masked Alert 
 firewall rules where Service Any = true
 firewall rules where Service Any = true and action = ALLOW and destination ip = '0.0.0.0'
 firewall rules from VM 'App01-ACI' to VM 'DB02-ACI'
 show flow where firewall action = 'DENY' 
-NSX-V Security Group 'Prod-Web'
+firewall rules where Indirect Destination security group 
 NSX-T Security Group 'NSX-INTELLIGENCE-GROUP'
+top 10 nsx-t firewall rule order by Hit Count
+flows where firewall rule is not set
+firewall rule where action = allow and service any = true 
+flows where firewall rule = 'Allow HTTP for Imagic' 
+nsx-t firewall rule where Flow Packets = 0 in last 30 days
+new nsx-t firewall rule in last 30 days
 ```
 #### Lateral Threat, Internal Traffic <a name="lateral"></a>
 ```
