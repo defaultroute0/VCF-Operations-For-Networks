@@ -324,11 +324,13 @@ show flow where firewall action = 'DENY'
 firewall rules where Indirect Destination security group 
 NSX-T Security Group 'NSX-INTELLIGENCE-GROUP'
 top 10 nsx-t firewall rule order by Hit Count
+top 10 firewall rules order by Session Count
 flows where firewall rule is not set
 firewall rule where action = allow and service any = true 
 flows where firewall rule = 'Allow HTTP for Imagic' 
 nsx-t firewall rule where Flow Packets = 0 in last 30 days
 new nsx-t firewall rule in last 30 days
+VMs group by Firewall Rule
 ```
 #### Lateral Threat, Internal Traffic <a name="lateral"></a>
 ```
