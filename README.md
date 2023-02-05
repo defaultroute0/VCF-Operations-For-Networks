@@ -371,7 +371,9 @@ show flows where Maximum TCP RTT > 150
 flows in last 7 days   >> FLOW INSIGHTS >> NETWORK PERFORMANCE
 show 'Unused DFW Rules' 
 show 'Unused NSX Firewall Rules' 
+firewall rule where flows is not set in last 30 days
 show  Firewall Rule Masked Alert 
+others: https://vrealize.vmware.com/sample-exchange/vrealize-network-insight-search-exchange/categories/Firewall
 router interface where Rx packet drops > 0    //troubleshoot uplink ports
 NSX-T Logical Switch where Rx Packet Drops > 0       //troubleshoot segments
 ```
