@@ -1,4 +1,4 @@
-# VMware Aria Operations for Networks
+```# VMware Aria Operations for Networks
  (formerly vRealize Network Insight) - Useful Queries
 
 1. [Trial Process](#overview)
@@ -333,6 +333,7 @@ flows where firewall rule = 'Allow HTTP for Imagic'
 nsx-t firewall rule where Flow Packets = 0 in last 30 days
 new nsx-t firewall rule in last 30 days
 VMs group by Firewall Rule
+flows where  Source Manager  not in ( 'SC2nsxt-01.cmbu.local' , 'nsx-emea.vrni.cmbu.local' ) and  Destination Manager in (  'SC2nsxt-01.cmbu.local' ,  'nsx-emea.vrni.cmbu.local' ) and  firewall action = 'ALLOW'  and VM not in (vRNI-PREGA-Collector-1, vRNI-FieldDemo-Collector-1) and not in cluster 'North Cluster'  group by  firewall ruleid
 ```
 #### Lateral Threat, Internal Traffic <a name="lateral"></a>
 ```
