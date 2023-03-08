@@ -298,6 +298,7 @@ flows where Destination Port == 3389 and Source Country == 'China'
 flows where Destination Port == 3389 group by Destination VM, Source Country
 flow where destination port = 22 and source continent not 'oceania' order by bytes rate 
 show flows from Cluster 'Management' to 'Internet-Gateway' 
+Incomplete TCP Session desc
 ```
 
 #### Physical Flows <a name="phyflows"></a>
