@@ -796,6 +796,7 @@ vm where name like web
 series(sum(bytes rate)) of Flows where Application = '3TierApp02'
  #(can change to last 3 days, or last 30 days for instance, and click search again)
 series(sum(network usage)) of  VMware VM where  Name like web
+series(sum(bytes rate)) of flow where vm  like 'web'
 sum(Total Traffic) of Flows where Application =  'HIVE Training' in last 7 days
 sum(Total Traffic) of Flows where Application =  'HIVE Training' in last 24 hours
 sum(Total Traffic) of Flows where source Application =  'HIVE Training' and  Destination Application = ‘mybackup-app’ in last 30 days
