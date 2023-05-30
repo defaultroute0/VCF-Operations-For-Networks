@@ -319,11 +319,13 @@ pci compliance of Cluster 'Cluster-1'
 Firewall Rules
 Security Tag 'ST-Tito-Web' 
 show  'Unused NSX Firewall Rules' 
+show 'Unused DFW Rules' 
 show  Firewall Rule Masked Alert 
 firewall rules where Service Any = true
 firewall rules where Service Any = true and action = ALLOW and destination ip = '0.0.0.0'
 firewall rules from VM 'App01-ACI' to VM 'DB02-ACI'
 show flow where firewall action = 'DENY' 
+firewall rule where flows is not set in last 30 days
 firewall rules where Indirect Destination security group 
 NSX-T Security Group 'NSX-INTELLIGENCE-GROUP'
 top 10 nsx-t firewall rule order by Hit Count
@@ -334,6 +336,22 @@ flows where firewall rule = 'Allow HTTP for Imagic'
 nsx-t firewall rule where Flow Packets = 0 in last 30 days
 new nsx-t firewall rule in last 30 days
 VMs group by Firewall Rule
+flow  where  IP Address =  70.70.70.31 
+flow where  Source IP Address = 70.70.70.31 group by  Security Groups 
+flow where  Source IP Address = 70.70.70.31 group by   firewall rule 
+NSX-T Security Group 'ryan-hack-servers'
+  //  SHows overview, indirect groups, rule counts, flows, direct rules, indirect rules, allowed/denied flows 
+NSX-T Firewall Rule 'r1'
+    // shows flows, allowed flows, denied flows, metrics: hit / session / flow packet counts, alerts 
+nsx-t firewall rule where   Security Group like  'ryan-hack-servers' order by  Hit Count 
+flow  where  firewall rule =  'r1' group by source security group, destination security group
+	// add Source IP, Destination IP in more filters
+NSX Policy Group   where Direct outgoing Rules like r1
+flow  where  firewall rule =  'r1' group by  Security Groups 
+flow  where  firewall rule =  'r1' group by  IP Address 
+NSX Policy Group  where  Translated VM =  'Ryan-Victim-VM' 
+NSX Policy Group   where  IP Address = 70.70.70.31
+NSX Policy Group   where  IP Address =  44.44.44.33
 ```
 SHow me flows coming into NSX domain from a non NSX domain and which rules they are hitting, excluding some vm's and clusters
 ```
@@ -375,30 +393,9 @@ show flows order by Average TCP RTT
 Average Physical Network Flow Latency 
 show flows where Maximum TCP RTT > 150
 flows in last 7 days   >> FLOW INSIGHTS >> NETWORK PERFORMANCE
-show 'Unused DFW Rules' 
-show 'Unused NSX Firewall Rules' 
-firewall rule where flows is not set in last 30 days
-show  Firewall Rule Masked Alert 
 others: https://vrealize.vmware.com/sample-exchange/vrealize-network-insight-search-exchange/categories/Firewall
 router interface where Rx packet drops > 0    //troubleshoot uplink ports
 NSX-T Logical Switch where Rx Packet Drops > 0       //troubleshoot segments
-flow  where  IP Address =  70.70.70.31 
-flow where  Source IP Address = 70.70.70.31 group by  Security Groups 
-flow where  Source IP Address = 70.70.70.31 group by   firewall rule 
-NSX-T Security Group 'ryan-hack-servers'
-  //  SHows overview, indirect groups, rule counts, flows, direct rules, indirect rules, allowed/denied flows 
-NSX-T Firewall Rule 'r1'
-    // shows flows, allowed flows, denied flows, metrics: hit / session / flow packet counts, alerts 
-flow  where  firewall rule =  'r1' group by source security group, destination security group
-	// add Source IP, Destination IP in more filters
-NSX Policy Group   where Direct outgoing Rules like r1
-flow  where  firewall rule =  'r1' group by  Security Groups 
-flow  where  firewall rule =  'r1' group by  IP Address 
-NSX Policy Group  where  Translated VM =  'Ryan-Victim-VM' 
-NSX Policy Group   where  IP Address = 70.70.70.31
-NSX Policy Group   where  IP Address =  44.44.44.33
-
-
 ```
 #### VMC  <a name="vmc"></a>
 
