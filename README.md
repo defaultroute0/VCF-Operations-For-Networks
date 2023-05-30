@@ -382,6 +382,23 @@ show  Firewall Rule Masked Alert
 others: https://vrealize.vmware.com/sample-exchange/vrealize-network-insight-search-exchange/categories/Firewall
 router interface where Rx packet drops > 0    //troubleshoot uplink ports
 NSX-T Logical Switch where Rx Packet Drops > 0       //troubleshoot segments
+flow  where  IP Address =  70.70.70.31 
+flow where  Source IP Address = 70.70.70.31 group by  Security Groups 
+flow where  Source IP Address = 70.70.70.31 group by   firewall rule 
+NSX-T Security Group 'ryan-hack-servers'
+  //  SHows overview, indirect groups, rule counts, flows, direct rules, indirect rules, allowed/denied flows 
+NSX-T Firewall Rule 'r1'
+    // shows flows, allowed flows, denied flows, metrics: hit / session / flow packet counts, alerts 
+flow  where  firewall rule =  'r1' group by source security group, destination security group
+	// add Source IP, Destination IP in more filters
+NSX Policy Group   where Direct outgoing Rules like r1
+flow  where  firewall rule =  'r1' group by  Security Groups 
+flow  where  firewall rule =  'r1' group by  IP Address 
+NSX Policy Group  where  Translated VM =  'Ryan-Victim-VM' 
+NSX Policy Group   where  IP Address = 70.70.70.31
+NSX Policy Group   where  IP Address =  44.44.44.33
+
+
 ```
 #### VMC  <a name="vmc"></a>
 
