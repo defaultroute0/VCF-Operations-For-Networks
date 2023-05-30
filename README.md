@@ -351,7 +351,8 @@ flow  where  firewall rule =  'r1' group by  Security Groups
 flow  where  firewall rule =  'r1' group by  IP Address 
 NSX Policy Group  where  Translated VM =  'Ryan-Victim-VM' 
 NSX Policy Group   where  IP Address = 70.70.70.31
-NSX Policy Group   where  IP Address =  44.44.44.33
+NSX Policy Group   where  IP Address =  70.70.70.31 group by Direct Incoming Rules
+NSX Policy Group   where  IP Address =  70.70.70.31 group by Direct Outgoing Rules
 ```
 SHow me flows coming into NSX domain from a non NSX domain and which rules they are hitting, excluding some vm's and clusters
 ```
