@@ -355,6 +355,11 @@ NSX Policy Group   where  IP Address = 70.70.70.31
 NSX Policy Group   where  IP Address =  70.70.70.31 group by Direct Incoming Rules
 NSX Policy Group   where  IP Address =  70.70.70.31 group by Direct Outgoing Rules
 ```
+
+Exporting DFW rules into CSV
+```
+https://docs.vmware.com/en/VMware-Aria-Operations-for-Networks/6.10/Using-Operations-for-Networks/GUID-FF803835-0409-4ACB-95AC-91428541C4CB.html?hWord=N4IghgNiBcIE4FcIFMAEyAeAHA9nALiAL5A
+```
 SHow me flows coming into NSX domain from a non NSX domain and which rules they are hitting, excluding some vm's and clusters
 ```
 flows where  Source Manager  not in ( 'SC2nsxt-01.cmbu.local' , 'nsx-emea.vrni.cmbu.local' ) and  Destination Manager in (  'SC2nsxt-01.cmbu.local' ,  'nsx-emea.vrni.cmbu.local' ) and  firewall action = 'ALLOW'  and VM not in (vRNI-PREGA-Collector-1, vRNI-FieldDemo-Collector-1) and not in cluster 'North Cluster'  group by  firewall ruleid
