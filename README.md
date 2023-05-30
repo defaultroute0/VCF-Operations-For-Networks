@@ -344,6 +344,7 @@ NSX-T Security Group 'ryan-hack-servers'
 NSX-T Firewall Rule 'r1'
     // shows flows, allowed flows, denied flows, metrics: hit / session / flow packet counts, alerts 
 nsx-t firewall rule where   Security Group like  'ryan-hack-servers' order by  Hit Count 
+firewall rules where source ip = 192.168.100.34 or destination ip = 192.168.100.34 
 flow  where  firewall rule =  'r1' group by source security group, destination security group
 	// add Source IP, Destination IP in more filters
 NSX Policy Group   where Direct outgoing Rules like r1
