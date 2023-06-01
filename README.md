@@ -323,6 +323,8 @@ show 'Unused DFW Rules'
 show  Firewall Rule Masked Alert 
 firewall rules where Service Any = true
 firewall rules where Service Any = true and action = ALLOW and destination ip = '0.0.0.0'
+Ipset where Indirect Incoming Rules is not set and Indirect Outgoing Rules is not set and Direct Incoming Rules is not set and Direct Outgoing Rules is not set
+	// Unused IP Sets
 firewall rules from VM 'App01-ACI' to VM 'DB02-ACI'
 show flow where firewall action = 'DENY' 
 firewall rule where flows is not set in last 30 days
@@ -331,6 +333,7 @@ NSX-T Security Group 'NSX-INTELLIGENCE-GROUP'
 top 10 nsx-t firewall rule order by Hit Count
 top 10 firewall rules order by Session Count
 flows where firewall rule is not set
+NSX-T Firewall Rule where  Applied To is not set 
 firewall rule where action = allow and service any = true 
 flows where firewall rule = 'Allow HTTP for Imagic' 
 nsx-t firewall rule where Flow Packets = 0 in last 30 days
@@ -345,6 +348,7 @@ NSX-T Firewall Rule 'r1'
     // shows flows, allowed flows, denied flows, metrics: hit / session / flow packet counts, alerts 
 nsx-t firewall rule where   Security Group like  'ryan-hack-servers' order by  Hit Count 
 firewall rules where source ip = 192.168.100.34 or destination ip = 192.168.100.34 
+NSX-T Firewall Rule where Configured Source Count  > 20 or Configured destination Count > 20
 flow  where  firewall rule =  'r1' group by source security group, destination security group
 	// add Source IP, Destination IP in more filters
 NSX Policy Group   where Direct outgoing Rules like r1
