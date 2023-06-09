@@ -348,6 +348,7 @@ NSX-T Firewall Rule 'r1'
     // shows flows, allowed flows, denied flows, metrics: hit / session / flow packet counts, alerts 
 nsx-t firewall rule where   Security Group like  'ryan-hack-servers' order by  Hit Count 
 firewall rules where source ip = 192.168.100.34 or destination ip = 192.168.100.34 
+firewall rules where  Port = 3306 and  Source != ANY and  Destination != ANY
 firewall rules where source ip = 123.123.123.123 and   Port = 3306
 firewall rules where source ip = 123.123.123.123 and   Port = 3306 and  Source != ANY and  Destination != ANY
 firewall rules where source ip = 123.123.123.123 and   Configured Service =  'MySQL_3306' 
