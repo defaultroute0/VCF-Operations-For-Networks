@@ -351,6 +351,7 @@ firewall rules where source ip = 192.168.100.34 or destination ip = 192.168.100.
 firewall rules where  Port = 3306 and  Source != ANY and  Destination != ANY
 firewall rules where source ip = 123.123.123.123 and   Port = 3306
 firewall rules where source ip = 123.123.123.123 and   Port = 3306 and  Source != ANY and  Destination != ANY
+firewall rules where source ip = 123.123.123.123 and  destination ip = 70.70.70.30 and Port = 3306 and  Source != ANY and  Destination != ANY
 firewall rules where source ip = 123.123.123.123 and destination ip = 70.70.70.30 and  Service = 'MySQL_3306' and Source != ANY and Destination != ANY 
 firewall rules where source ip = 123.123.123.123 and   Configured Service =  'MySQL_3306' 
 NSX-T Firewall Rule where Configured Source Count  > 20 or Configured destination Count > 20
