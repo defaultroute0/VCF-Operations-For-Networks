@@ -367,7 +367,6 @@ NSX Policy Group   where  IP Address =  70.70.70.31 group by Direct Outgoing Rul
 LIMITS >> define alert based of these...
 NSX-T Firewall Rule where Configured Source Count > 100 or Configured destination Count > 100
 NSX Firewall where Rule Count > 90000
-NSX Firewall where Firewall Sections Count > 70000
 NSX Security Group where Child Count > 6
  
 
