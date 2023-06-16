@@ -370,7 +370,6 @@ NSX-T Firewall Rule where Configured Source Count > 100 or Configured destinatio
 NSX Firewall where Rule Count > 90000
 Firewall Rule Membership Change in last 24 hours
 NSX Security Group where Child Count > 6
-NSX Policy Group   where  IP Address = 70.70.70.31
 count of Security Group where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of NSX Firewall Rule where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of  Firewall Rule Membership Change in last 24 hours
@@ -378,6 +377,8 @@ count of   Apply Rule To Vnic Failed Alert
 NSX-T Manager 'nsxm.vcnlab01.eng.vmware.com' >>  TN node health, Metrics Flows
 NSX Firewall Rule where  Applied To is set   (GOOD)
 NSX Firewall Rule where  Applied To is not set    (BAD)
+NSX Firewall Rule group by  Section Name 
+
  
 
 ```
