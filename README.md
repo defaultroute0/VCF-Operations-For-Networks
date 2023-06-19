@@ -352,7 +352,7 @@ firewall rules where  Port = 3306 and  Source != ANY and  Destination != ANY
 firewall rules where source ip = 123.123.123.123 and   Port = 3306
 firewall rules where source ip = 123.123.123.123 and   Port = 3306 and  Source != ANY and  Destination != ANY
 firewall rules where source ip = 123.123.123.123 and  destination ip = 70.70.70.30 and Port = 3306 and  Source != ANY and  Destination != ANY
-  // the above command will show rules even if they are duplicate criteria, or match the logic
+  // the above command will show rules even if they are same name having duplicate criteria, or match the logic
 firewall rules where source ip = 123.123.123.123 and destination ip = 70.70.70.30 and  Service = 'MySQL_3306' and Source != ANY and Destination != ANY 
 firewall rules where source ip = 123.123.123.123 and   Configured Service =  'MySQL_3306' 
 NSX-T Firewall Rule where Configured Source Count  > 20 or Configured destination Count > 20
