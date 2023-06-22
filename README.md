@@ -379,7 +379,17 @@ count of   Apply Rule To Vnic Failed Alert
 NSX-T Manager 'nsxm.vcnlab01.eng.vmware.com' >>  TN node health, Metrics Flows
 NSX Firewall Rule where  Applied To is set   (GOOD)
 NSX Firewall Rule where  Applied To is not set    (BAD)
-NSX Firewall Rule group by  Section Name 
+NSX Firewall Rule group by  Section Name
+
+Identifying Dup's etc: This query will give exact duplicate for SG/Services have single member/port.
+For multi member/ports, the above query will provide partial overlapping result, but not convey if its exact duplicate. You would have to use some sort of scripting as Pravin suggested
+nsx policy firewall rule group by port
+nsx policy firewall rule group by configuredSources.members
+nsx policy firewall rule group by configuredDestinations.members
+nsx policy group where member is set group by member
+
+Another possibility is to use firewall rule CSV export feature documented at https://docs.vmware.com/en/VMware-Aria-Operations-for-Networks/6.10/Using-Operations-for-Networks/GUID-FF803835-0409-4ACB-95AC-91428541C4CB.html . It contains additional information like source/ dest IPs, service ports etc. , which can be used to group similar firewall rules in Excel. Do note that the IPs/ports are not sorted and  based on the order as seen in firewall rule configuration
+
 vRNI Homepage itself shows things, which can be brought onto custo dashboard:
  - 9 new firewall rules hits
  - 51 unused firewall rules
