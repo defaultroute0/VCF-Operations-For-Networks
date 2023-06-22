@@ -320,7 +320,6 @@ Firewall Rules
 Security Tag 'ST-Tito-Web' 
 show  'Unused NSX Firewall Rules' 
 show 'Unused DFW Rules' 
-show  Firewall Rule Masked Alert 
 firewall rules where Service Any = true
 firewall rules where Service Any = true and action = ALLOW and destination ip = '0.0.0.0'
 Ipset where Indirect Incoming Rules is not set and Indirect Outgoing Rules is not set and Direct Incoming Rules is not set and Direct Outgoing Rules is not set
@@ -366,8 +365,16 @@ NSX Policy Group   where  IP Address = 70.70.70.31
 NSX Policy Group   where  IP Address =  70.70.70.31 group by Direct Incoming Rules
 NSX Policy Group   where  IP Address =  70.70.70.31 group by Direct Outgoing Rules
 =====
-LIMITS >> define alert based of these...
-NSX-T Firewall Rule where Configured Source Count > 100 or Configured destination Count > 100
+LIMITS >> can also define alerts based off of these...
+
+vRNI Homepage itself shows things, which can be brought onto custo dashboard:
+ - 9 new firewall rules hits
+ - 51 unused firewall rules
+ - 14 masked firewall rules
+ - 56 empty security groups
+
+NSX-T Manager 'nsxm.vcnlab01.eng.vmware.com' >>  TN node health, Metrics Flows
+NSX-T Firewall Rule where Configured Source Count > 10 or Configured destination Count > 10
 NSX Firewall where Rule Count > 90000
 Firewall Rule Membership Change in last 24 hours
 NSX Security Group where Child Count > 6
@@ -376,32 +383,23 @@ count of Security Group where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of NSX Firewall Rule where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of  Firewall Rule Membership Change in last 24 hours
 count of   Apply Rule To Vnic Failed Alert
-NSX-T Manager 'nsxm.vcnlab01.eng.vmware.com' >>  TN node health, Metrics Flows
+
 NSX Firewall Rule where  Applied To is set   (GOOD)
 NSX Firewall Rule where  Applied To is not set    (BAD)
 NSX Firewall Rule group by  Section Name
 
-Identifying Dup's etc: This query will give exact duplicate for SG/Services have single member/port.
-For multi member/ports, the above query will provide partial overlapping result, but not convey if its exact duplicate. You would have to use some sort of scripting as Pravin suggested
+Identifying Dup's etc:
 nsx policy firewall rule group by port
 nsx policy firewall rule group by configuredSources.members
 nsx policy firewall rule group by configuredDestinations.members
 nsx policy group where member is set group by member
+show  Firewall Rule Masked Alert 
+
+These type of queries will give exact duplicate for SG/Services have single member/port.
+For multi member/ports, the above query may provide partial overlapping result, but not convey if its exact duplicate. While Aria Operations for Networks can give you a members list, one could use a script to iterate through all the results and compare to check for duplicates.  Members can be various objects, not just an IP or VM, it could be another tag/security group that you would need to go investigate as well
 
 Another possibility is to use firewall rule CSV export feature documented at https://docs.vmware.com/en/VMware-Aria-Operations-for-Networks/6.10/Using-Operations-for-Networks/GUID-FF803835-0409-4ACB-95AC-91428541C4CB.html . It contains additional information like source/ dest IPs, service ports etc. , which can be used to group similar firewall rules in Excel. Do note that the IPs/ports are not sorted and  based on the order as seen in firewall rule configuration
 
-vRNI Homepage itself shows things, which can be brought onto custo dashboard:
- - 9 new firewall rules hits
- - 51 unused firewall rules
- - 14 masked firewall rules
- - 56 empty security groups
-
-
-```
-
-Exporting DFW rules into CSV
-```
-https://docs.vmware.com/en/VMware-Aria-Operations-for-Networks/6.10/Using-Operations-for-Networks/GUID-FF803835-0409-4ACB-95AC-91428541C4CB.html?hWord=N4IghgNiBcIE4FcIFMAEyAeAHA9nALiAL5A
 ```
 SHow me flows coming into NSX domain from a non NSX domain and which rules they are hitting, excluding some vm's and clusters
 ```
