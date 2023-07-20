@@ -319,7 +319,8 @@ pci compliance of Cluster 'Cluster-1'
 Firewall Rules
 Security Tag 'ST-Tito-Web' 
 show  'Unused NSX Firewall Rules' 
-show 'Unused DFW Rules' 
+show 'Unused DFW Rules'
+vm where NSX-T Security Group is not set  // (VM which dangerously dont have policy) 
 firewall rules where Service Any = true
 firewall rules where Service Any = true and action = ALLOW and destination ip = '0.0.0.0'
 Ipset where Indirect Incoming Rules is not set and Indirect Outgoing Rules is not set and Direct Incoming Rules is not set and Direct Outgoing Rules is not set
