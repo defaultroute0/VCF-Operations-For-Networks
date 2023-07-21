@@ -379,7 +379,9 @@ NSX-T Firewall Rule where Configured Source Count > 10 or Configured destination
 NSX Firewall where Rule Count > 90000
 Firewall Rule Membership Change in last 24 hours
 NSX Security Group where Child Count > 6
-Security Group where Member count = 0
+Security Group where Member count = 0 // Empty Group
+Unused Security Groups - show security group where incoming rule count = 0 and outgoing rule count = 0 and indirect incoming rule count = 0 and indirect outgoing rule count = 0
+    // Non Empty but unused  (thanks Ben Lewis)
 count of Security Group where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of NSX Firewall Rule where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of  Firewall Rule Membership Change in last 24 hours
