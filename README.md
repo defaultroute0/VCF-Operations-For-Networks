@@ -382,6 +382,7 @@ NSX Security Group where Child Count > 6
 Security Group where Member count = 0 // Empty Group
 Unused Security Groups - show security group where incoming rule count = 0 and outgoing rule count = 0 and indirect incoming rule count = 0 and indirect outgoing rule count = 0
     // Non Empty but unused  (thanks Ben Lewis)
+Unused Security tags - show Security Tag where Translated VM is not set  (thanks Ben Lewis)
 count of Security Group where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of NSX Firewall Rule where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of  Firewall Rule Membership Change in last 24 hours
