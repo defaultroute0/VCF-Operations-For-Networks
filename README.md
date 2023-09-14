@@ -404,8 +404,8 @@ For multi member/ports, the above query may provide partial overlapping result, 
 
 Another possibility is to use firewall rule CSV export feature documented at https://docs.vmware.com/en/VMware-Aria-Operations-for-Networks/6.10/Using-Operations-for-Networks/GUID-FF803835-0409-4ACB-95AC-91428541C4CB.html . It contains additional information like source/ dest IPs, service ports etc. , which can be used to group similar firewall rules in Excel. Do note that the IPs/ports are not sorted and  based on the order as seen in firewall rule configuration
 ```
-
 ![firewall rule CSV export feature](https://github.com/defaultroute0/vrni/blob/master/images/csv.gif?raw=true)
+
 
 
 ```
