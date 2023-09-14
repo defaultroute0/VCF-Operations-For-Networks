@@ -403,12 +403,9 @@ These type of queries will give exact duplicate for SG/Services have single memb
 For multi member/ports, the above query may provide partial overlapping result, but not convey if its exact duplicate. While Aria Operations for Networks can give you a members list, one could use a script to iterate through all the results and compare to check for duplicates.  Members can be various objects, not just an IP or VM, it could be another tag/security group that you would need to go investigate as well
 
 Another possibility is to use firewall rule CSV export feature documented at https://docs.vmware.com/en/VMware-Aria-Operations-for-Networks/6.10/Using-Operations-for-Networks/GUID-FF803835-0409-4ACB-95AC-91428541C4CB.html . It contains additional information like source/ dest IPs, service ports etc. , which can be used to group similar firewall rules in Excel. Do note that the IPs/ports are not sorted and  based on the order as seen in firewall rule configuration
-```
 ![firewall rule CSV export feature](https://github.com/defaultroute0/vrni/blob/master/images/csv.gif?raw=true)
-
-
-
 ```
+
 SHow me flows coming into NSX domain from a non NSX domain and which rules they are hitting, excluding some vm's and clusters
 ```
 flows where  Source Manager  not in ( 'SC2nsxt-01.cmbu.local' , 'nsx-emea.vrni.cmbu.local' ) and  Destination Manager in (  'SC2nsxt-01.cmbu.local' ,  'nsx-emea.vrni.cmbu.local' ) and  firewall action = 'ALLOW'  and VM not in (vRNI-PREGA-Collector-1, vRNI-FieldDemo-Collector-1) and not in cluster 'North Cluster'  group by  firewall ruleid
