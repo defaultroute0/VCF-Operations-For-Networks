@@ -1,5 +1,5 @@
 # VMware Aria Operations for Networks
- (formerly vRealize Network Insight) - Useful Queries
+ (is the Artist formerly known as 'vRealize Network Insight') - Useful Queries
 
 1. [Trial Process](#overview)
 	1. [Prerequisites](#prerequisites)
