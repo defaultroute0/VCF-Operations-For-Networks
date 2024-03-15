@@ -169,7 +169,7 @@ https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.u
 https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/datasheet/products/vmw-vrni-search-poster.pdf
 
 Really nice search database:
-https://vrealize.vmware.com/sample-exchange/vrealize-network-insight-search-exchange/categories
+https://aria.vmware.com/sample-exchange/vmware-aria-operations-for-networks-search-exchange/categories
 
 #### Top List of Entities  <a name="topn"></a>
 ```
