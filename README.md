@@ -329,24 +329,24 @@ firewall rules from VM 'App01-ACI' to VM 'DB02-ACI'
 show flow where firewall action = 'DENY' 
 firewall rule where flows is not set in last 30 days
 firewall rules where Indirect Destination security group 
-NSX-T Security Group 'NSX-INTELLIGENCE-GROUP'
-top 10 nsx-t firewall rule order by Hit Count
+NSX Policy Group 'NSX-INTELLIGENCE-GROUP'
+top 10 firewall rule order by Hit Count
 top 10 firewall rules order by Session Count
 flows where firewall rule is not set
-NSX-T Firewall Rule where  Applied To is not set 
+firewall rule where  Applied To is not set 
 firewall rule where action = allow and service any = true 
 flows where firewall rule = 'Allow HTTP for Imagic' 
-nsx-t firewall rule where Flow Packets = 0 in last 30 days
-new nsx-t firewall rule in last 30 days
+firewall rule where Flow Packets = 0 in last 30 days
+new firewall rule in last 30 days
 VMs group by Firewall Rule
-flow  where  IP Address =  70.70.70.31 
+flow  where  IP Address =  70.70.70.31 4
 flow where  Source IP Address = 70.70.70.31 group by  Security Groups 
 flow where  Source IP Address = 70.70.70.31 group by   firewall rule 
-NSX-T Security Group 'ryan-hack-servers'
+NSX Policy Group 'ryan-hack-servers'
   //  SHows overview, indirect groups, rule counts, flows, direct rules, indirect rules, allowed/denied flows 
-NSX-T Firewall Rule 'r1'
+NSX Policy Firewall Rule 'r1'
     // shows flows, allowed flows, denied flows, metrics: hit / session / flow packet counts, alerts 
-nsx-t firewall rule where   Security Group like  'ryan-hack-servers' order by  Hit Count 
+firewall rule where   Security Group like  'ryan-hack-servers' order by  Hit Count 
 firewall rules where source ip = 192.168.100.34 or destination ip = 192.168.100.34 
 firewall rules where  Port = 3306 and  Source != ANY and  Destination != ANY
 firewall rules where source ip = 123.123.123.123 and   Port = 3306
@@ -355,7 +355,7 @@ firewall rules where source ip = 123.123.123.123 and  destination ip = 70.70.70.
   // the above command will show rules even if they are same name having duplicate criteria, or match the logic
 firewall rules where source ip = 123.123.123.123 and destination ip = 70.70.70.30 and  Service = 'MySQL_3306' and Source != ANY and Destination != ANY 
 firewall rules where source ip = 123.123.123.123 and   Configured Service =  'MySQL_3306' 
-NSX-T Firewall Rule where Configured Source Count  > 20 or Configured destination Count > 20
+NSX Policy Firewall Rule where Configured Source Count  > 7 or Configured destination Count > 7
 flow  where  firewall rule =  'r1' group by source security group, destination security group
 	// add Source IP, Destination IP in more filters
 NSX Policy Group   where Direct outgoing Rules like r1
@@ -375,8 +375,8 @@ vRNI Homepage itself shows things, which can be brought onto custo dashboard:
  - 56 empty security groups
 
 NSX-T Manager 'nsxm.vcnlab01.eng.vmware.com' >>  TN node health, Metrics Flows
-NSX-T Firewall Rule where Configured Source Count > 10 or Configured destination Count > 10
-NSX Firewall where Rule Count > 90000
+Firewall Rule where Configured Source Count > 10 or Configured destination Count > 10
+Firewall where Rule Count > 90000
 Firewall Rule Membership Change in last 24 hours
 NSX Security Group where Child Count > 6
 Security Group where Member count = 0 // Empty Group
