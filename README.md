@@ -388,9 +388,9 @@ count of NSX Firewall Rule where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of  Firewall Rule Membership Change in last 24 hours
 count of   Apply Rule To Vnic Failed Alert
 
-NSX Firewall Rule where  Applied To is set   (GOOD)
-NSX Firewall Rule where  Applied To is not set    (BAD)
-NSX Firewall Rule group by  Section Name
+Firewall Rule where  Applied To is set   (GOOD for scaling large rule sets)
+Firewall Rule where  Applied To is not set    (BAD for scaling large rule sets)
+Firewall Rule group by  Section Name
 
 Identifying Dup's etc:
 nsx policy firewall rule group by port
