@@ -375,6 +375,7 @@ LIMITS >> can also define alerts based off of these...
  - 56 empty security groups (Cleanup)
 
 Security Group where Member count = 0 // Cleanup Empty Group
+NSX Policy Firewall Rule where  Hit Count = 0 in last 30 days // Cleanup Unsed Rules
 NSX-T Manager 'nsxm.vcnlab01.eng.vmware.com' >>  TN node health, Metrics Flows
 Firewall Rule where Configured Source Count > 10 or Configured destination Count > 10
 Firewall where Rule Count > 90000
