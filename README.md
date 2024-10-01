@@ -368,21 +368,21 @@ NSX Policy Group   where  IP Address =  70.70.70.31 group by Direct Outgoing Rul
 =====
 LIMITS >> can also define alerts based off of these...
 
-vRNI Homepage itself shows things, which can be brought onto custo dashboard:
+**AON Homepage itself shows things, which can be cleanup**
  - 9 new firewall rules hits
- - 51 unused firewall rules
- - 14 masked firewall rules
- - 56 empty security groups
+ - 51 unused firewall rules (Cleanup)
+ - 14 masked firewall rules (Cleanup)
+ - 56 empty security groups (Cleanup)
 
+Security Group where Member count = 0 // Cleanup Empty Group
 NSX-T Manager 'nsxm.vcnlab01.eng.vmware.com' >>  TN node health, Metrics Flows
 Firewall Rule where Configured Source Count > 10 or Configured destination Count > 10
 Firewall where Rule Count > 90000
 Firewall Rule Membership Change in last 24 hours
 NSX Security Group where Child Count > 6
-Security Group where Member count = 0 // Empty Group
-Unused Security Groups - show security group where incoming rule count = 0 and outgoing rule count = 0 and indirect incoming rule count = 0 and indirect outgoing rule count = 0
-    // Non Empty but unused  (thanks Ben Lewis)
-Unused Security tags - show Security Tag where Translated VM is not set  (thanks Ben Lewis)
+
+show security group where incoming rule count = 0 and outgoing rule count = 0 and indirect incoming rule count = 0 and indirect outgoing rule count = 0
+    // Cleanup Non Empty but Unused Group
 count of Security Group where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of NSX Firewall Rule where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of  Firewall Rule Membership Change in last 24 hours
@@ -392,12 +392,12 @@ Firewall Rule where  Applied To is set   (GOOD for scaling large rule sets)
 Firewall Rule where  Applied To is not set    (BAD for scaling large rule sets)
 Firewall Rule group by  Section Name
 
-Identifying Dup's etc:
-nsx policy firewall rule group by port
-nsx policy firewall rule group by configuredSources.members
-nsx policy firewall rule group by configuredDestinations.members
+** Identifying Dup's (See where logic is used in more than one rule) etc:**
+nsx policy firewall rule group by port 
+nsx policy firewall rule group by configuredSources.members 
+nsx policy firewall rule group by configuredDestinations.members 
 nsx policy group where member is set group by member
-show  Firewall Rule Masked Alert 
+show  Firewall Rule Masked Alert // SHows shadow rules security gaps etc 
 
 These type of queries will give exact duplicate for SG/Services have single member/port.
 For multi member/ports, the above query may provide partial overlapping result, but not convey if its exact duplicate. While Aria Operations for Networks can give you a members list, one could use a script to iterate through all the results and compare to check for duplicates.  Members can be various objects, not just an IP or VM, it could be another tag/security group that you would need to go investigate as well
