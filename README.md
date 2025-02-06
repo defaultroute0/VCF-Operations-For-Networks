@@ -968,6 +968,11 @@ Step by step instructions for setting up postman and interacting with vRNI's Ope
 
 ![API method](https://github.com/defaultroute0/vrni/blob/master/images/image.png?raw=true)
 
+Use the OpenAPI spec 3.0 json and import this into postman
+https://yourvrni.yourdomain.com/doc-api/swagger-config.json
+
+or
+
 https://github.com/vrealize-network-insight/vrni-api-postman-collection
 
 Import these two files as raw github links / URLs into postman
