@@ -8,23 +8,20 @@ from datetime import datetime
 # Suppress SSL warnings (useful for self-signed certificates)
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# Define the correct base URI for API requests based on AON 6.14 API schema, see swagger for more info inside product
+# Define the correct base URI for API requests without v1
 base_url = "https://vrni.shank.com/api/ni"
-
 
 ############################
 #CUSTOMER INPUT Values START
 ############################
-application_name = "FIRECLOUD_MYAPP01_region1"  # Application name you're searching for, new or existing
-
+application_name = "FIRECLOUD_MYAPP034_region1"  # Application name you're searching for, new or existing
 tier_match_criteria = "Tag = 'FIRECLOUD:MYAPP01' and NSX = 'nsx.region1.shank.com'"  # Custom VM search filter
-# name convention about is "TAGKEY_TAG_SDDC"
-# NSX = the nsx manager name in the correct GCVE SDDC
+tier_name = "MyTier01" #single tier only in this example, should be enough to just match on NSX tags AND NSXMxyz
 
 # Define the LDAP authentication URL and credentials
 ldap_auth_url = f"{base_url}/auth/token"
 username = "ryan@shank.com"
-password = "XXXX"
+password = "P@ssw0rd123!"
 auth_data = {
     "username": username,
     "password": password,
@@ -142,7 +139,7 @@ except requests.exceptions.RequestException as e:
 if application_id:
     application_tiers_url = f"{base_url}/groups/applications/{application_id}/tiers"
     tier_data = {
-        "name": "tier-1",
+        "name": f"{tier_name}",
         "source_group_entity_id": [application_id],
         "group_membership_criteria": [
             {
