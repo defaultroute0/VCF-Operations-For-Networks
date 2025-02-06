@@ -16,9 +16,10 @@ base_url = "https://vrni.shank.com/api/ni"
 #CUSTOMER INPUT Values START
 ############################
 application_name = "FIRECLOUD_MYAPP01_region1"  # Application name you're searching for, new or existing
-#name convention about is "TAGKEY_TAG_SDDC"
 
 tier_match_criteria = "Tag = 'FIRECLOUD:MYAPP01' and NSX = 'nsx.region1.shank.com'"  # Custom VM search filter
+# name convention about is "TAGKEY_TAG_SDDC"
+# NSX = the nsx manager name in the correct GCVE SDDC
 
 # Define the LDAP authentication URL and credentials
 ldap_auth_url = f"{base_url}/auth/token"
