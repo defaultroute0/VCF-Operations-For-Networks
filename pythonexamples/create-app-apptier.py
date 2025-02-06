@@ -23,7 +23,7 @@ tier_match_criteria = "Tag = 'FIRECLOUD:MYAPP01' and NSX = 'nsx.region1.shank.co
 # Define the LDAP authentication URL and credentials
 ldap_auth_url = f"{base_url}/auth/token"
 username = "ryan@shank.com"
-password = "P@ssw0rd123!"
+password = "XXXX"
 auth_data = {
     "username": username,
     "password": password,
