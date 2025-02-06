@@ -8,7 +8,7 @@ from datetime import datetime
 # Suppress SSL warnings (useful for self-signed certificates)
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# Define the correct base URI for API requests without v1
+# Define the correct base URI for API requests based on AON 6.14 API schema, see swagger for more info inside product
 base_url = "https://vrni.shank.com/api/ni"
 
 
