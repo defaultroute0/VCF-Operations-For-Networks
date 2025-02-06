@@ -11,16 +11,19 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # Define the correct base URI for API requests without v1
 base_url = "https://vrni.shank.com/api/ni"
 
+
 ############################
 #CUSTOMER INPUT Values START
 ############################
-application_name = "My-3Tier-App6"  # Application name you're searching for, new or existing
+application_name = "FIRECLOUD_MYAPP01_region1"  # Application name you're searching for, new or existing
+#name convention about is "TAGKEY_TAG_SDDC"
+
 tier_match_criteria = "Tag = 'FIRECLOUD:MYAPP01' and NSX = 'nsx.region1.shank.com'"  # Custom VM search filter
 
 # Define the LDAP authentication URL and credentials
 ldap_auth_url = f"{base_url}/auth/token"
 username = "ryan@shank.com"
-password = "XXXXXX"
+password = "P@ssw0rd123!"
 auth_data = {
     "username": username,
     "password": password,
