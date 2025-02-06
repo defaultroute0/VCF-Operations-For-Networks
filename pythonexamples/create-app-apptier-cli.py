@@ -1,3 +1,8 @@
+###############################################
+# CUSTOMER INPUT Values COME FROM CLI ARGUMENTS
+# RUN THIS FILE FROM CLI, -h for example
+###############################################
+
 import requests
 import json
 import urllib3
@@ -13,7 +18,7 @@ base_url = "https://vrni.shank.com/api/ni"
 
 # Function to validate input variables
 def validate_input(value):
-    # Regular expression to check for valid characters (letters, digits, spaces, underscores, hyphens) as the UI does
+    # Regular expression to check for valid characters (letters, digits, spaces, underscores, hyphens)
     pattern = r"^[A-Za-z0-9\s\-_]+$"
     if not re.match(pattern, value):
         raise argparse.ArgumentTypeError(f"Invalid input: {value}. Only letters, numbers, spaces, hyphens, and underscores are allowed.")
@@ -21,11 +26,9 @@ def validate_input(value):
 
 # Step 1: Parse command-line arguments using argparse
 parser = argparse.ArgumentParser(
-    description="""Create application tier in VMware Aria Operation for Networks.\n
-    
+    description="""Create application tier in VMware Aria Operations for Networks.\n
     Example usage:\n
     python create-app-tier.py "My-3Tier-App" "Tag = 'FIRECLOUD:MYAPP01' and NSX = 'nsx.region1.shank.com'" "tier-1"\n
-    
     This script creates a new application tier with the specified name and matching criteria\n
     for virtual machines."""
 )
@@ -49,7 +52,7 @@ print(f"Tier Name: {tier_name}")
 # Define the LDAP authentication URL and credentials
 ldap_auth_url = f"{base_url}/auth/token"
 username = "ryan@shank.com"
-password = "XXXX"
+password = "P@ssw0rd123!"
 auth_data = {
     "username": username,
     "password": password,
