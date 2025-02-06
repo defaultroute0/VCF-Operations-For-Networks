@@ -1,13 +1,8 @@
-###############################################
-# CUSTOMER INPUT Values COME FROM CLI ARGUMENTS
-# RUN THIS FILE FROM CLI, -h for example
-###############################################
+from optparse import Values
 
 import requests
 import json
 import urllib3
-import argparse
-import re
 from datetime import datetime
 
 # Suppress SSL warnings (useful for self-signed certificates)
@@ -15,76 +10,61 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Define the correct base URI for API requests without v1
 base_url = "https://vrni.shank.com/api/ni"
+ldap_auth_url = f"{base_url}/auth/token"
 
-# Function to validate input variables
-def validate_input(value):
-    # Regular expression to check for valid characters (letters, digits, spaces, underscores, hyphens)
-    pattern = r"^[A-Za-z0-9\s\-_]+$"
-    if not re.match(pattern, value):
-        raise argparse.ArgumentTypeError(f"Invalid input: {value}. Only letters, numbers, spaces, hyphens, and underscores are allowed.")
-    return value
-
-# Step 1: Parse command-line arguments using argparse
-parser = argparse.ArgumentParser(
-    description="""Create application tier in VMware Aria Operations for Networks.\n
-    Example usage:\n
-    python create-app-tier.py "My-3Tier-App" "Tag = 'FIRECLOUD:MYAPP01' and NSX = 'nsx.region1.shank.com'" "tier-1"\n
-    This script creates a new application tier with the specified name and matching criteria\n
-    for virtual machines."""
-)
-
-# Define arguments with help descriptions
-parser.add_argument("application_name", type=validate_input, help="The name of the application (new or existing).")
-parser.add_argument("tier_match_criteria", type=validate_input, help="The filter criteria for VM search (e.g., 'Tag = FIRECLOUD:MYAPP01 and NSX = nsx.region1.shank.com').")
-parser.add_argument("tier_name", type=validate_input, help="The name of the tier to be created.")
-
-args = parser.parse_args()
-
-# Get values from the parsed arguments
-application_name = args.application_name
-tier_match_criteria = args.tier_match_criteria
-tier_name = args.tier_name
-
-print(f"Application Name: {application_name}")
-print(f"Tier Match Criteria: {tier_match_criteria}")
-print(f"Tier Name: {tier_name}")
+############################
+#CUSTOMER INPUT Values START
+############################
+application_name = "FIRECLOUD_MYAPP01_region1"  # Application name you're searching for, new or existing
+tier_match_criteria = "Tag = 'FIRECLOUD:MYAPP01' and NSX = 'nsx.region1.shank.com'"  # Custom VM search filter
+tier_name = "MyTier01" #single tier only in this example, should be enough to just match on NSX tags AND NSXMxyz
 
 # Define the LDAP authentication URL and credentials
-ldap_auth_url = f"{base_url}/auth/token"
-username = "ryan@shank.com"
-password = "P@ssw0rd123!"
+
+username = "ryan@shank.com"  #your username here
+password = "P@ssw0rd123!"   #your username here
 auth_data = {
     "username": username,
     "password": password,
     "domain": {
-        "domain_type": "LDAP",
-        "value": "shank.com"
+        "domain_type": "LDAP",   #your method here like AD or local
+        "value": "shank.com"   # your AD domain here
     }
 }
+############################
+#CUSTOMER INPUT Values END
+############################
+
 
 auth_headers = {
     "Content-Type": "application/json"
 }
 
-# Step 2: Request Bearer Token using username, password, and domain (LDAP authentication)
+# Step 1: Request Bearer Token using username, password, and domain (LDAP authentication)
 try:
     print(f"Attempting to authenticate at URL: {ldap_auth_url}")
     auth_response = requests.post(ldap_auth_url, headers=auth_headers, json=auth_data, verify=False, timeout=30)
 
+    # Check if the authentication was successful
     if auth_response.status_code == 200:
-        response_json = auth_response.json()
-        bearer_token = response_json.get("access_token") or response_json.get("token")
+        try:
+            response_json = auth_response.json()
+            bearer_token = response_json.get("access_token") or response_json.get("token")
 
-        if bearer_token:
-            print(f"Bearer Token received: {bearer_token}")
-            expiry_timestamp = response_json.get("expiry")
-            if expiry_timestamp:
-                expiry_time = datetime.utcfromtimestamp(expiry_timestamp / 1000)
-                print(f"Token expires at: {expiry_time}")
+            if bearer_token:
+                print(f"Bearer Token received: {bearer_token}")
+
+                expiry_timestamp = response_json.get("expiry")
+                if expiry_timestamp:
+                    expiry_time = datetime.utcfromtimestamp(expiry_timestamp / 1000)
+                    print(f"Token expires at: {expiry_time}")
+                else:
+                    print("No expiry time found in the token response.")
             else:
-                print("No expiry time found in the token response.")
-        else:
-            print("No Bearer token found in the response.")
+                print("No Bearer token found in the response.")
+                exit(1)
+        except ValueError as e:
+            print(f"Failed to parse the JSON response: {e}")
             exit(1)
     else:
         print(f"Failed to authenticate: {auth_response.status_code}")
@@ -94,7 +74,7 @@ except requests.exceptions.RequestException as e:
     print(f"Request failed: {e}")
     exit(1)
 
-# Step 3: Check if application already exists by name
+# Step 2: Check if application already exists by name
 applications_url = f"{base_url}/groups/applications"
 try:
     response = requests.get(applications_url, headers={"Authorization": f"NetworkInsight {bearer_token}"},
@@ -104,13 +84,16 @@ try:
         applications = response.json()
         application_id = None
 
+        # Debugging: Print the structure of the applications data to understand the response
         print(f"Applications response structure: {json.dumps(applications, indent=2)}")
 
+        # Now we need to get details for each application to match by name
         for app in applications:
             if isinstance(app, dict):  # Ensure we're dealing with a dictionary and not a string
                 app_entity_id = app.get("entity_id")
                 print(f"Checking application with entity_id: {app_entity_id}")
 
+                # Fetch application details using the entity_id to get the name
                 app_details_url = f"{base_url}/groups/applications/{app_entity_id}"
                 app_details_response = requests.get(app_details_url,
                                                     headers={"Authorization": f"NetworkInsight {bearer_token}"},
@@ -120,14 +103,17 @@ try:
                     app_details = app_details_response.json()
                     app_name = app_details.get("name")
                     print(f"Application name: {app_name}")
+                    # Check if the name matches
                     if app_name == application_name:
                         application_id = app_entity_id
                         break
 
+        # If the application ID is found, proceed to create the tier
         if application_id:
             print(f"Application '{application_name}' exists with ID: {application_id}")
         else:
             print(f"Application '{application_name}' does not exist, creating it...")
+            # If application does not exist, create it
             application_data = {"name": application_name}
             application_creation_response = requests.post(applications_url,
                                                           headers={"Authorization": f"NetworkInsight {bearer_token}"},
@@ -150,11 +136,11 @@ except requests.exceptions.RequestException as e:
     print(f"Request failed: {e}")
     exit(1)
 
-# Step 4: Create the application tier if application exists
+# Step 3: Create the application tier if application exists
 if application_id:
     application_tiers_url = f"{base_url}/groups/applications/{application_id}/tiers"
     tier_data = {
-        "name": tier_name,
+        "name": f"{tier_name}",
         "source_group_entity_id": [application_id],
         "group_membership_criteria": [
             {
@@ -184,7 +170,7 @@ if application_id:
                                                json=tier_data, verify=False, timeout=30)
 
         if tier_creation_response.status_code == 201:
-            print(f"Tier '{tier_name}' created successfully!")
+            print(f"Tier 'tier-1' created successfully!")
             print(tier_creation_response.json())  # Print the response if successful
         else:
             print(f"Failed to create tier: {tier_creation_response.status_code}")
