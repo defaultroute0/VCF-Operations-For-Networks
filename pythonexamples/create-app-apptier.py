@@ -22,7 +22,7 @@ tier_name = "MyTier01" #single tier only in this example, should be enough to ju
 # Define the LDAP authentication URL and credentials
 
 username = "ryan@shank.com"  #your username here
-password = "P@ssw0rd123!"   #your username here
+password = "XXXX"   #your username here
 auth_data = {
     "username": username,
     "password": password,
