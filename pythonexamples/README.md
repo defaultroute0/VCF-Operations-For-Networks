@@ -3,4 +3,4 @@
 - By doing this via NSX Security tags, membership is dynamic, and the app boundary can be further used in analysis or metrics etc 
 
 <img src="https://github.com/defaultroute0/vrni/blob/master/images/app_disc.gif" alt="Sample Image" width="4000">
-> (Click on image to enlarge
+> Click on image to enlarge
