@@ -49,8 +49,8 @@ You can then copy the OVAs onto a vSphere Datastore in your management environme
 
 Also - please read the pre-requisites below as they relate to product versions, vCenter permissions, and the Distributed Switch.  
 
-To get access to the 60-day vRNI Trial OVA's and Trial Key you can go here:
-http://vmware.com/go/vna-field/
+To get access software trials /  OVA's and Trial Key you can go here:
+http://support.broadcom.com/
 
 To download the appliances (and get the license key), you can sign in using your my.vmware.com credentials.
 If you do not have a my.vmware.com account - select "create an account" to register first.
@@ -464,6 +464,7 @@ NSX Policy Manager '10.73.185.131'
 - Defining or Discovering and viewing Applications
 ```
 applications    //use hostname, SNOW, or even ML for Flow Based App Discovery
+also see here: https://github.com/defaultroute0/vrni/tree/master/pythonexamples
 ```
 
 - Troubleshooting - Audit
@@ -963,6 +964,7 @@ flows where destination port = 3389 and destination application = 'CrownJewelDB'
 
 ## Using vRNI via its API <a name="api"></a>
 See pythonexamples subfolder also
+https://github.com/defaultroute0/vrni/tree/master/pythonexamples
 
 Step by step instructions for setting up postman and interacting with vRNI's OpenAPI spec
 
