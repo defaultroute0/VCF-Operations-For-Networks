@@ -1,25 +1,34 @@
-import argparse
 import requests
 import json
+import argparse
+import urllib3
 from datetime import datetime
 
 # Suppress SSL warnings (useful for self-signed certificates)
-import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Define the correct base URI for API requests without v1
 base_url = "https://vrni.shank.com/api/ni"
 ldap_auth_url = f"{base_url}/auth/token"
 
-# LDAP authentication credentials
-username = "ryan@shank.com"  # your username here
-password = "P@ssw0rd123!"
+# Parse CLI arguments
+parser = argparse.ArgumentParser(description='Query firewall rules from Aria Operations for Network.')
+parser.add_argument('query', help='The base query for the firewall rules.')
+parser.add_argument('--exclude-src-any', action='store_true', help='Exclude Source == any from the query.')
+parser.add_argument('--exclude-dest-any', action='store_true', help='Exclude Destination == any from the query.')
+parser.add_argument('--exclude-both-any', action='store_true', help='Exclude Source == any and Destination == any from the query.')
+
+args = parser.parse_args()
+
+# Customer input for LDAP authentication
+username = "ryan@shank.com"  # Replace with your username
+password = "XXXX"    # Replace with your password
 auth_data = {
     "username": username,
     "password": password,
     "domain": {
         "domain_type": "LDAP",  # Your method here like AD or local
-        "value": "shank.com"  # Your AD domain here
+        "value": "shank.com"    # Your AD domain here
     }
 }
 
@@ -27,105 +36,100 @@ auth_headers = {
     "Content-Type": "application/json"
 }
 
-def get_bearer_token():
-    try:
-        print(f"Attempting to authenticate at URL: {ldap_auth_url}")
-        auth_response = requests.post(ldap_auth_url, headers=auth_headers, json=auth_data, verify=False, timeout=30)
+# Step 1: Request Bearer Token using username, password, and domain (LDAP authentication)
+try:
+    print(f"Attempting to authenticate at URL: {ldap_auth_url}")
+    auth_response = requests.post(ldap_auth_url, headers=auth_headers, json=auth_data, verify=False, timeout=30)
 
-        if auth_response.status_code == 200:
-            response_json = auth_response.json()
-            bearer_token = response_json.get("access_token") or response_json.get("token")
-            if bearer_token:
-                print(f"Bearer Token received: {bearer_token}")
-                return bearer_token
+    if auth_response.status_code == 200:
+        response_json = auth_response.json()
+        bearer_token = response_json.get("access_token") or response_json.get("token")
+
+        if bearer_token:
+            print(f"Bearer Token received: {bearer_token}")
+
+            expiry_timestamp = response_json.get("expiry")
+            if expiry_timestamp:
+                expiry_time = datetime.utcfromtimestamp(expiry_timestamp / 1000)
+                print(f"Token expires at: {expiry_time}")
             else:
-                print("No Bearer token found in the response.")
-                exit(1)
+                print("No expiry time found in the token response.")
         else:
-            print(f"Failed to authenticate: {auth_response.status_code}")
-            print(f"Response content: {auth_response.text}")
+            print("No Bearer token found in the response.")
             exit(1)
-    except requests.exceptions.RequestException as e:
-        print(f"Request failed: {e}")
-        exit(1)
-
-def construct_query(base_query, exclude_source_any, exclude_destination_any):
-    # Default action: Add "Source != any" and "Destination != any" if no exclusions are provided
-    if not exclude_source_any and not exclude_destination_any:
-        print("No specific exclusions provided. Using default filters: 'and Source != any and Destination != any'.")
-        base_query += " and Source != any and Destination != any"
     else:
-        if exclude_source_any:
-            print("Excluding 'any' from the Source field.")
-            base_query += " and Source != any"
-        if exclude_destination_any:
-            print("Excluding 'any' from the Destination field.")
-            base_query += " and Destination != any"
-    return base_query
+        print(f"Failed to authenticate: {auth_response.status_code}")
+        print(f"Response content: {auth_response.text}")
+        exit(1)
+except requests.exceptions.RequestException as e:
+    print(f"Request failed: {e}")
+    exit(1)
 
-def fetch_rule_details(bearer_token, entity_id):
-    api_url = f"{base_url}/entities/firewall-rules/{entity_id}"
-    headers = {
-        "Authorization": f"NetworkInsight {bearer_token}",
-        "Content-Type": "application/json"
-    }
+# Step 2: Construct the query based on CLI arguments
+query = args.query
 
-    try:
-        print(f"Fetching details for rule with entity_id: {entity_id}...")
-        response = requests.get(api_url, headers=headers, verify=False, timeout=30)
-        if response.status_code == 200:
-            data = response.json()
-            rule_name = data.get("name", "Unknown")
-            hit_count = data.get("hitCount", "Unknown")
-            print(f"Rule ID: {entity_id}, Rule Name: {rule_name}, Hit Count: {hit_count}")
+# Apply exclusions
+if args.exclude_both_any:
+    print("Excluding both Source != any and Destination != any from the query.")
+    query += " and Source != any and Destination != any"
+elif args.exclude_src_any:
+    print("Excluding Source != any from the query.")
+    query += " and Source != any"
+elif args.exclude_dest_any:
+    print("Excluding Destination != any from the query.")
+    query += " and Destination != any"
+
+# Display constructed query
+print(f"This is what got sent as a QUERY: {query}")
+
+# Step 3: Send the search query request
+api_url = f"{base_url}/search/ql"  # Replace with your API endpoint for Aria Operations
+headers = {
+    "Authorization": f"NetworkInsight {bearer_token}",
+    "Content-Type": "application/json"
+}
+
+search_data = {
+    "query": query
+}
+
+try:
+    print(f"Sending custom search query to URL: {api_url}")
+    print(f"Request Headers: {json.dumps(headers, indent=2)}")
+    print(f"Request Body: {json.dumps(search_data, indent=2)}")
+
+    search_response = requests.post(api_url, headers=headers, json=search_data, verify=False, timeout=30)
+
+    if search_response.status_code == 200:
+        data = search_response.json()
+        print(f"Search results returned: {data.get('search_response_total_hits', 0)} results.")
+
+        if 'entity_list_response' in data and 'results' in data['entity_list_response']:
+            results = data['entity_list_response']['results']
+            if results:
+                print("Rule ID | Rule Name | Hit Count")
+                print("-" * 50)
+                for rule in results:
+                    rule_id = rule.get("entity_id")
+                    # Fetch rule details using the rule entity ID
+                    rule_details_url = f"{base_url}/entities/firewall-rules/{rule_id}"
+                    rule_details_response = requests.get(rule_details_url, headers=headers, verify=False, timeout=30)
+                    if rule_details_response.status_code == 200:
+                        rule_details = rule_details_response.json()
+                        rule_name = rule_details.get("name", "Unknown")
+                        hit_count = rule_details.get("hit_count", "N/A")
+                        print(f"{rule_id} | {rule_name} | {hit_count}")
+                    else:
+                        print(f"Failed to fetch details for rule ID {rule_id}: {rule_details_response.status_code}")
+            else:
+                print("No firewall rules found.")
         else:
-            print(f"Failed to fetch details for rule with entity_id: {entity_id}")
-            print(f"Response: {response.text}")
-    except requests.exceptions.RequestException as e:
-        print(f"Request failed: {e}")
+            print("No results found in the search response.")
 
-def main():
-    # Command-line argument parsing
-    parser = argparse.ArgumentParser(description="Query firewall rules from the API.")
-    parser.add_argument("query", help="The firewall query to run (e.g. 'firewall rules where source ip = 1.2.3.4')")
-    parser.add_argument("--exclude-source-any", action="store_true", help="Exclude 'any' from the Source field")
-    parser.add_argument("--exclude-destination-any", action="store_true", help="Exclude 'any' from the Destination field")
-    args = parser.parse_args()
+    else:
+        print(f"Failed to send search query: {search_response.status_code}")
+        print(f"Response content: {search_response.text}")
 
-    # Step 1: Get Bearer Token
-    bearer_token = get_bearer_token()
-
-    # Step 2: Construct the search query based on user input
-    query = construct_query(args.query, args.exclude_source_any, args.exclude_destination_any)
-
-    # Step 3: Send the search query
-    search_url = f"{base_url}/search/ql"
-    headers = {
-        "Authorization": f"NetworkInsight {bearer_token}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "query": query
-    }
-
-    try:
-        print(f"Sending custom search query to URL: {search_url}")
-        search_response = requests.post(search_url, headers=headers, json=data, verify=False, timeout=30)
-
-        if search_response.status_code == 200:
-            search_results = search_response.json()
-            print(f"Search results: {json.dumps(search_results, indent=4)}")
-
-            # Step 4: Fetch rule details for each matching result
-            for result in search_results.get("entity_list_response", {}).get("results", []):
-                entity_id = result.get("entity_id")
-                if entity_id:
-                    fetch_rule_details(bearer_token, entity_id)
-        else:
-            print(f"Failed to send search query: {search_response.status_code}")
-            print(f"Response content: {search_response.text}")
-    except requests.exceptions.RequestException as e:
-        print(f"Request failed: {e}")
-
-if __name__ == "__main__":
-    main()
+except requests.exceptions.RequestException as e:
+    print(f"Request failed: {e}")
+    exit(1)
