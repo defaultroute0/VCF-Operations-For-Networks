@@ -5,13 +5,13 @@
 <img src="https://github.com/defaultroute0/vrni/blob/master/images/app_disc.gif" alt="Sample Image" width="4000">
 Click on image to enlarge
 
-# Using AON to check for precence of NSX DFW Rule based on IP addresses
+# Example 2 - Using AON to check for precence of NSX DFW Rule based on IP addresses
 
-### Files
+## Files
 - `create-app-apptier-cli.py`
 - `create-app-apptier.py`
 
-## Example 2 - Firewall Rules Query Script
+## Firewall Rules Query Script
 
 This script allows you to query firewall rules using the `Aria Operations` API and retrieve the details of the matching rules based on various parameters such as source IP, and exclusion filters for the `Source` and `Destination` fields. It provides flexibility to filter out any rules with `Source = any` and `Destination = any` using command-line flags.
 
