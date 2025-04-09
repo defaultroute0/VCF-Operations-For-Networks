@@ -10,3 +10,4 @@ Usage
 ````
   python CheckForRuleCLI.py "firewall rules where source ip = 1.2.3.4 and Source != any and Destination != any"
 ````
+https://github.com/defaultroute0/vrni/blob/09678d8bef73621ab7f3de4f250248574490c4dc/pythonexamples/create-app-apptier-cli.py
