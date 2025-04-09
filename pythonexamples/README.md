@@ -8,8 +8,8 @@ Click on image to enlarge
 # Using AON to check for precence of NSX DFW Rule based on IP addresses
 
 ### Files
-**create-app-apptier-cli.py**
-**create-app-apptier.py**
+`create-app-apptier-cli.py`
+`create-app-apptier.py`
 
 ## Example 2 - Firewall Rules Query Script
 
