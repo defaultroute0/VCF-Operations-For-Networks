@@ -6,8 +6,7 @@
 Click on image to enlarge
 
 # Using AON to check for precence of NSX DFW Rule based on IP addresses
- 
-  python CheckForRuleCLI.py "firewall rules where source ip = 1.2.3.4 and Source != any and Destination != any"
+
 
 ## Firewall Rules Query Script
 
