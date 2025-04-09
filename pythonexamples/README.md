@@ -8,16 +8,16 @@ Click on image to enlarge
 # Using AON to check for precence of NSX DFW Rule based on IP addresses
 
 ### Files
-`create-app-apptier-cli.py`
-`create-app-apptier.py`
+- `create-app-apptier-cli.py`
+- `create-app-apptier.py`
 
 ## Example 2 - Firewall Rules Query Script
 
 This script allows you to query firewall rules using the `Aria Operations` API and retrieve the details of the matching rules based on various parameters such as source IP, and exclusion filters for the `Source` and `Destination` fields. It provides flexibility to filter out any rules with `Source = any` and `Destination = any` using command-line flags.
 
 ### Files
-**CheckForRule.py**
-**CheckForRuleCLI.py**
+- `CheckForRule.py`
+- `CheckForRuleCLI.py`
 
 ### Usage
 
