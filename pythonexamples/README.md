@@ -1,4 +1,4 @@
-# Adding Applications to AON Programatically via NSX Sec tags 
+# Example 1 - Adding Applications to AON Programatically via NSX Sec tags 
 - Using either CLI or non CLI script to dynamically add an application into Aria Ops 4 Networks.
 - By doing this via NSX Security tags, membership is dynamic, and the app boundary can be further used in analysis or metrics etc 
 
@@ -7,10 +7,17 @@ Click on image to enlarge
 
 # Using AON to check for precence of NSX DFW Rule based on IP addresses
 
+### Files
+**create-app-apptier-cli.py**
+**create-app-apptier.py**
 
-## Firewall Rules Query Script
+## Example 2 - Firewall Rules Query Script
 
 This script allows you to query firewall rules using the `Aria Operations` API and retrieve the details of the matching rules based on various parameters such as source IP, and exclusion filters for the `Source` and `Destination` fields. It provides flexibility to filter out any rules with `Source = any` and `Destination = any` using command-line flags.
+
+### Files
+**CheckForRule.py**
+**CheckForRuleCLI.py**
 
 ### Usage
 
