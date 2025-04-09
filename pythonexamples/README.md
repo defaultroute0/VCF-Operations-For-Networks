@@ -4,3 +4,9 @@
 
 <img src="https://github.com/defaultroute0/vrni/blob/master/images/app_disc.gif" alt="Sample Image" width="4000">
 Click on image to enlarge
+
+## Using AON to check for precence of NSX DFW Rule based on IP addresses
+Usage
+````
+  python CheckForRuleCLI.py "firewall rules where source ip = 1.2.3.4 and Source != any and Destination != any"
+````
