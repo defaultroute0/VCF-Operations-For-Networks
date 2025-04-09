@@ -29,7 +29,7 @@ This script allows you to query firewall rules using the `Aria Operations for Ne
 - `--exclude-dest-any`: Exclude `any` from the **Destination** field.
 - `--exclude-both-any`: Exclude `any` from both **Source** and **Destination** fields.
 
-  ````
+````
 Note: If no exclusion options are used, the script will show all rules which match the logic, including rules using 'any' in source/destination
 ````
 
