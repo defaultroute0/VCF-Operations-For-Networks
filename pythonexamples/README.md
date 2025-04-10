@@ -44,7 +44,7 @@ Note: If no exclusion options are used, the script will show all rules which mat
 Click on image to enlarge
 
 
-Example Output when run from CLI
+#####Example Output when run from CLI
 ````
 > python CheckForRuleCLI-new.py "firewall rules where source ip = 10.185.0.3" --exclude-dest-any
 
