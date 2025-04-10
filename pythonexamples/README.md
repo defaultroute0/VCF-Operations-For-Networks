@@ -5,11 +5,12 @@
 <img src="https://github.com/defaultroute0/vrni/blob/master/images/app_disc.gif" alt="AON App working" width="4000">
 Click on image to enlarge
 
-# Example 2 - Using AON to check for precence of NSX DFW Rule based on IP addresses
-
 ## Files
 - `create-app-apptier-cli.py`
 - `create-app-apptier.py`
+
+  
+# Example 2 - Using AON to check for precence of NSX DFW Rule based on IP addresses
 
 ## Firewall Rules Query Script
 
