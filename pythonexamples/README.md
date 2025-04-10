@@ -61,11 +61,13 @@ Click on image to enlarge
 
 [Step 3] Fetching rule details...
 
-AON Rule ID                              NSX Rule ID               Rule Name                                     Hit Count 
-------------------------------------------------------------------------------------------------------------------------
-15594:944:710780584611312272             6124                      RDPin                                         N/A       
-15594:944:1705259450708502726            18486                     http                                          N/A       
-15594:944:3986301848699345474            6                         Malicious IP at Destination Rule              N/A       
-15594:944:7461218340798391788            6125                      TTdenyAll                                     N/A       
-15594:944:8857434439073083695            6                         malicious-ip-at-destination-rule              N/A       
+AON Rule ID                              NSX Rule ID     Rule Name                               
+-----------------------------------------------------------------------------------------------
+15594:944:710780584611312272             6124            RDPin                                   
+15594:944:1705259450708502726            18486           http                                    
+15594:944:3986301848699345474            6               Malicious IP at Destination Rule        
+15594:944:7461218340798391788            6125            TTdenyAll                               
+15594:944:8857434439073083695            6               malicious-ip-at-destination-rule        
+
+ 
 ````
