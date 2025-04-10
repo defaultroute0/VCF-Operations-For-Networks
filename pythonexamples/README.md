@@ -42,3 +42,30 @@ Note: If no exclusion options are used, the script will show all rules which mat
 
 <img src="https://github.com/defaultroute0/vrni/blob/master/images/fwrules.png" alt="FWRuleScriptWorking Image" width="4000">
 Click on image to enlarge
+
+
+Example Output when run from CLI
+````
+> python CheckForRuleCLI-new.py "firewall rules where source ip = 10.185.0.3" --exclude-dest-any
+
+
+[Step 1] Authenticating at: https://vrni.shank.com/api/ni/auth/token
+[SUCCESS] Token received: WFApjUQkiKIw92hSZqRfYA==
+[INFO] Token expires at: 2025-04-10 05:28:46.472000
+
+[Step 2] Sending search to: https://vrni.shank.com/api/ni/search/ql
+[DEBUG] This is what got sent as a QUERY:
+{
+  "query": "firewall rules where source ip = 10.185.0.3 and Destination != any"
+}
+
+[Step 3] Fetching rule details...
+
+AON Rule ID                              NSX Rule ID               Rule Name                                     Hit Count 
+------------------------------------------------------------------------------------------------------------------------
+15594:944:710780584611312272             6124                      RDPin                                         N/A       
+15594:944:1705259450708502726            18486                     http                                          N/A       
+15594:944:3986301848699345474            6                         Malicious IP at Destination Rule              N/A       
+15594:944:7461218340798391788            6125                      TTdenyAll                                     N/A       
+15594:944:8857434439073083695            6                         malicious-ip-at-destination-rule              N/A       
+````
