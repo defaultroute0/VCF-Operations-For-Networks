@@ -452,6 +452,16 @@ flows in last 7 days   >> FLOW INSIGHTS >> NETWORK PERFORMANCE
 others: https://vrealize.vmware.com/sample-exchange/vrealize-network-insight-search-exchange/categories/Firewall
 router interface where Rx packet drops > 0    //troubleshoot uplink ports
 NSX-T Logical Switch where Rx Packet Drops > 0       //troubleshoot segments
+Router Interface  'en1_int1'
+VRF 'reg1wld-t0'
+NSX-T Manager 'nsx.region2.example.com' >> METRICS >> 
+    Router Interfaces   (shows VLAN uplinks also)
+    Transport Node Health
+NSX-T Transport Node 'en1'
+Router Interface where  Network Traffic Rate > 1 Mbps  in last 30 days 
+(add 'router port type' filter in left pane)
+Bytes, CPU Usage, Memory usage rate of NSX-T Transport Node where Node Type = 'EdgeNode' order by  Maximum Total Network Rate desc
+Troubleshooting Incident 'Troubleshoot - en1'
 ```
 #### VMC  <a name="vmc"></a>
 
