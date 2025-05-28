@@ -386,6 +386,8 @@ show security group where incoming rule count = 0 and outgoing rule count = 0 an
     // Cleanup Non Empty but Unused Group
 count of Security Group where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
 count of NSX Firewall Rule where  NSX Manager = 'nsxm.vcnlab01.eng.vmware.com'
+count of NSX Policy Firewall Rule where Firewall Type = 'Distributed Firewall' and manager = 'nsxm.vcnlab01.eng.vmware.com'
+NSX Policy Firewall Rule where Firewall Type = 'Distributed Firewall' group by manager
 count of  Firewall Rule Membership Change in last 24 hours
 count of   Apply Rule To Vnic Failed Alert
 
