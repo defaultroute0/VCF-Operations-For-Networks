@@ -40,7 +40,7 @@
 	13. [Moving, Migrating Applications](#migration)
 	14. [Virtual Network Assessment](#vna)
 3. [Using vRNI via API](#api)
-4. [Import/Export Applications](#applications)
+
 
 ## vRNI Trial Process <a name="overview"></a>
 
@@ -1037,106 +1037,3 @@ Hope this shows you a quick example of way you can drive pinboards and their con
 You can see OpenAPI spec documentation live in the product here:
 ![API method coming soon](https://github.com/defaultroute0/vrni/blob/master/images/openapispec.png?raw=true)
 
-## Import/Export Applications <a name="applications"></a>
-Step by step instructions for setting up and exporting vRNI Application definitions as per:  
-https://code.vmware.com/samples/7128/backup-and-restore-applications---vrealize-network-insight
-
-This workflow leverages the vRNI Python SDK.  
-
-#### 1. Create new Centos VM
-Build a new minimal Centos VM to run the necessary scripts.  
-For this, you can use APNEX's unattended install procedure here:  
-https://github.com/apnex/pxe
-
-#### 2. Install Python and pre-requisite packages
-Each command should be completed individually before proceeding to the next.  
-Commands assume you are logged in as root.  
-```sh
-yum update
-yum install epel-release
-yum install python python-pip git
-pip install --upgrade pip
-pip install python-dateutil urllib3 requests pyyaml
-```
-
-#### 3. Clone the `network-insight-sdk-python` repository
-```sh
-git clone https://github.com/vmware/network-insight-sdk-python
-```
-
-#### 4. Install the Python Swagger client
-```sh
-cd network-insight-sdk-python/swagger_client-py2.7.egg
-python setup.py install
-```
-
-#### 5. Test and run an example
-```sh
-cd ../examples
-python application_backups.py --help
-```
-
-#### 6. EXPORT: Run `application_backups.py` with valid parameters
-Example with **LOCAL** auth:
-```sh
-python application_backups.py \
---deployment_type 'onprem' \
---platform_ip '<vrni.fqdn.or.ip>' \
---domain_type 'LOCAL' \
---username '<username>' \
---password '<password>' \
---application_backup_yaml 'applications.yaml' \
---application_backup_action 'save'
-```
-
-Example with **LDAP** auth:
-```sh
-python application_backups.py \
---deployment_type 'onprem' \
---platform_ip '<vrni.fqdn.or.ip>' \
---domain_type 'LDAP' \
---domain_value '<domain>' \
---username '<username@domain>' \
---password '<password>' \
---application_backup_yaml 'applications.yaml' \
---application_backup_action 'save'
-```
-
-#### 7. IMPORT: Run `application_backups.py` with valid parameters
-Example with **LOCAL** auth:
-```sh
-python application_backups.py \
---deployment_type 'onprem' \
---platform_ip '<vrni.fqdn.or.ip>' \
---domain_type 'LOCAL' \
---username '<username>' \
---password '<password>' \
---application_backup_yaml 'applications.yaml' \
---application_backup_action 'restore'
-```
-
-Example with **LDAP** auth:
-```sh
-python application_backups.py \
---deployment_type 'onprem' \
---platform_ip '<vrni.fqdn.or.ip>' \
---domain_type 'LDAP' \
---domain_value '<domain>' \
---username '<username@domain>' \
---password '<password>' \
---application_backup_yaml 'applications.yaml' \
---application_backup_action 'restore'
-```
-
-#### Throttling Calls - HTTP 429 Errors
-Depending on vRNI platform utilisation and deployed size, yoou may see a `429 Too Many Requests` error.  
-This is the platfrom appliance rejecting API calls that exceed its current ability to process.  
-
-Solve this by modifying the `application_backups.py` file to sleep longer (for 1 second) between API calls.  
-
-```diff
--    36	                time.sleep(0.025)
-+    36	                time.sleep(1)
--    58	                time.sleep(0.025)
-+    58	                time.sleep(1)
-```
