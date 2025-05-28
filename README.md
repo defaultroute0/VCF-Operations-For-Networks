@@ -1,5 +1,5 @@
-# VMware Aria Operations for Networks
- (is the Artist formerly known as 'vRealize Network Insight') - Useful Queries
+# VCF Operations (for Networks)
+ (is the Artist formerly known as 'Aria Operations for Networks' & 'vRealize Network Insight') - Useful Queries
 
 1. [Trial Process](#overview)
 	1. [Prerequisites](#prerequisites)
