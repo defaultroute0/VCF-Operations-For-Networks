@@ -163,13 +163,8 @@ vRNI is a big data analytics set of of end to end environment, physical, virtual
 The usefulness of these outputs is only as good as the questions asked of the system, as constructed via **queries**  
 Here is a useful list
 
-#### Search Posters and Demos <a name="search"></a>
-https://vrealize.vmware.com/t/vrealize-network-insight/
-https://docs.vmware.com/en/VMware-vRealize-Network-Insight/6.0/com.vmware.vrni.using.doc/GUID-176F5A09-2325-41EA-A315-58738CB4F117.html
-https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/datasheet/products/vmw-vrni-search-poster.pdf
-
-Really nice search database:
-https://aria.vmware.com/sample-exchange/vmware-aria-operations-for-networks-search-exchange/categories
+#### Search Queries Documentation <a name="search"></a>
+https://techdocs.broadcom.com/us/en/vmware-cis/aria/aria-operations-for-networks/6-14/vrealize-network-insight-ug-4-1-and-later-6-14/search/search-queries.html
 
 #### Top List of Entities  <a name="topn"></a>
 ```
