@@ -26,7 +26,7 @@ query = {
 
 # LDAP authentication credentials
 username = "ryan@shank.com"  #your username here
-password = "P@ssw0rd123!"
+password = "XXXX"
 auth_data = {
     "username": username,
     "password": password,
